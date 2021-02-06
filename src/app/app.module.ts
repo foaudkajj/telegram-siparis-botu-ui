@@ -7,7 +7,6 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import 'hammerjs';
 
 import { FuseModule } from '@fuse/fuse.module';
 import { FuseSharedModule } from '@fuse/shared.module';
@@ -21,7 +20,7 @@ import { SampleModule } from 'app/main/sample/sample.module';
 
 const appRoutes: Routes = [
     {
-        path      : '**',
+        path: '**',
         redirectTo: 'sample'
     }
 ];
@@ -30,7 +29,7 @@ const appRoutes: Routes = [
     declarations: [
         AppComponent
     ],
-    imports     : [
+    imports: [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
@@ -56,10 +55,9 @@ const appRoutes: Routes = [
         LayoutModule,
         SampleModule
     ],
-    bootstrap   : [
+    bootstrap: [
         AppComponent
     ]
 })
-export class AppModule
-{
+export class AppModule {
 }
