@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -17,8 +17,17 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { RequestInterceptor } from './project/Helpers/httprequest.interceptor';
+import { DxLoadPanelModule } from 'devextreme-angular';
 
 const appRoutes: Routes = [
+    { path: "", redirectTo: "login", pathMatch: "full" },
+    {
+
+        path: 'login',
+        loadChildren: () => import('./project/pages/login/login.module').then(m => m.LoginModule),
+    },
     {
         path: '**',
         redirectTo: 'sample'
@@ -53,10 +62,15 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        SampleModule
+        SampleModule,
+        SweetAlert2Module,
+        DxLoadPanelModule
     ],
     bootstrap: [
         AppComponent
+    ],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true }
     ]
 })
 export class AppModule {

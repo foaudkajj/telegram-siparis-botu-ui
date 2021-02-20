@@ -28,7 +28,7 @@
 
 <!-- THEME OPTIONS PANEL -->
 <button mat-icon-button class="warn mat-elevation-z2 theme-options-button"
-        (click)="toggleSidebarOpen('themeOptionsPanel')">
+    (click)="toggleSidebarOpen('themeOptionsPanel')">
     <mat-icon>settings</mat-icon>
 </button>
 
@@ -36,3 +36,8 @@
     <fuse-theme-options></fuse-theme-options>
 </fuse-sidebar>
 <!-- / THEME OPTIONS PANEL -->
+
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#appBody' }" [(visible)]="isloading"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>
