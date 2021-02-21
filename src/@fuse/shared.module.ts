@@ -6,6 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { FuseDirectivesModule } from '@fuse/directives/directives';
 import { FusePipesModule } from '@fuse/pipes/pipes.module';
+import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { FusePipesModule } from '@fuse/pipes/pipes.module';
         FlexLayoutModule,
 
         FuseDirectivesModule,
-        FusePipesModule
+        FusePipesModule,
+        DxDataGridModule
     ],
     exports: [
         CommonModule,
@@ -26,7 +28,8 @@ import { FusePipesModule } from '@fuse/pipes/pipes.module';
         FlexLayoutModule,
 
         FuseDirectivesModule,
-        FusePipesModule
+        FusePipesModule,
+        DxDataGridModule
     ]
 })
 export class FuseSharedModule {

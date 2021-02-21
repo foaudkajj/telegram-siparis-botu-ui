@@ -29,6 +29,11 @@ const appRoutes: Routes = [
         loadChildren: () => import('./project/pages/login/login.module').then(m => m.LoginModule),
     },
     {
+
+        path: '',
+        loadChildren: () => import('./project/main-module.module').then(m => m.MainModuleModule),
+    },
+    {
         path: '**',
         redirectTo: 'sample'
     }

@@ -35,6 +35,11 @@ export const locale = {
         MESSAGES: {
             SUCCESFULL: "İşleminiz Başarıyla Yapılmıştır"
         },
+        ROLE_MANAGEMENT: {
+            TITLE: "Yetki Yönetimi",
+            ROLE_NAME: "Yetki Tanımı",
+            SAVE: "Değişiklikleri Kaydet"
+        },
         NAV: {
             BOT_MANAGEMENT: "Bot Yönteimi",
             CATEGORIES: "Ana Kategoriler",

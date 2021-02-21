@@ -38,6 +38,7 @@
         "classlist.js": "1.1.20150312",
         "devextreme": "^20.2.4",
         "devextreme-angular": "^20.2.4",
+        "devextreme-aspnet-data-nojquery": "2.8.0",
         "devextreme-schematics": "1.2.9",
         "lodash": "4.17.20",
         "moment": "2.29.1",
