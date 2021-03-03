@@ -1,0 +1,79 @@
+<div id="maidDefenetion" class="page-layout carded fullwidth">
+
+    <!-- TOP BACKGROUND -->
+    <!-- <div class="top-bg accent"></div> -->
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- CONTENT HEADER -->
+        <!-- <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+            <h2 class="m-0">Full width with content scroll</h2>
+        </div> -->
+        <!-- / CONTENT HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT TOOLBAR -->
+            <div class="toolbar primary px-24 py-8">
+                <span>{{translate.instant('USER_MANAGEMENT.TITLE')}}</span>
+            </div>
+            <!-- / CONTENT TOOLBAR -->
+
+            <!-- CONTENT -->
+
+            <div class="example-container mat-elevation-z8">
+
+                <dx-data-grid #UsersGrid id="gridContainer" [allowColumnResizing]="true" [columnAutoWidth]="true"
+                    [remoteOperations]="true" [dataSource]="store" [showBorders]="true">
+                    <dxi-column [caption]="'Id'" dataField="Id" [visible]="false" [formItem]="{visible: false}"
+                        dataType="number">
+                    </dxi-column>
+                    <dxi-column [caption]="translate.instant('USER_MANAGEMENT.NAME')" dataField="Name">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column [caption]="translate.instant('USER_MANAGEMENT.LASTNAME')" dataField="LastName">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column [caption]="translate.instant('USER_MANAGEMENT.CELLPHONE')" dataField="Cellphone"
+                        dataType="string" [editorOptions]="{mask : '(999)999-9999'}">
+                    </dxi-column>
+                    <dxi-column [caption]="translate.instant('USER_MANAGEMENT.USER_NAME')" dataField="UserName">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <!-- <dxi-column [caption]="translate.instant('USER_MANAGEMENT.USER_CODE')"
+                        dataField="UserCode">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column> -->
+                    <dxi-column [caption]="translate.instant('USER_MANAGEMENT.USER_STATUS')" dataField="UserStatus">
+                        <dxo-lookup [dataSource]="UserStatus" displayExpr="Name" valueExpr="Id">
+                        </dxo-lookup>
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column [caption]="translate.instant('USER_MANAGEMENT.PASSWORD')" dataField="Password"
+                        [visible]="false">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <!-- <dxi-column [caption]="translate.instant('USER_MANAGEMENT.IMAGE_PATH')"
+                        dataField="ImagePath"></dxi-column> -->
+                    <dxi-column [caption]="translate.instant('USER_MANAGEMENT.EMAIL')" dataField="Email">
+                        <!-- <dxi-validation-rule type="required"></dxi-validation-rule> -->
+                        <dxi-validation-rule type="email"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column [caption]="translate.instant('USER_MANAGEMENT.ROLE')" dataField="RoleId">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                        <dxo-lookup [dataSource]="rolList" displayExpr="RoleName" valueExpr="Id">
+                        </dxo-lookup>
+                    </dxi-column>
+                    <dxo-editing mode="popup" [allowUpdating]="AllowUpdate" [allowDeleting]="AllowDelete"
+                        [allowAdding]="AllowAdd">
+                    </dxo-editing>
+                    <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+                </dx-data-grid>
+
+            </div>
+        </div>
+    </div>
+</div>

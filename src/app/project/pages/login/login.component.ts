@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
         let loginRequest: LoginRequest = { username: this.loginForm.controls.email.value, password: this.loginForm.controls.password.value }
         let loginResponse = await this.userSerivce.Login(loginRequest).toPromise() as UIResponse<LoginResponse>;
         if (loginResponse.Result.IsAuthenticated) {
-            this.router.navigate(['usertypeselect'])
+            this.router.navigate(['/#'])
         } else {
             this.swal.showErrorMessage(loginResponse.MessageKey)
         }

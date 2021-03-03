@@ -4,6 +4,7 @@ import { DxStoreOptions } from 'app/project/Models/DxStoreOptions';
 import { RoleIdAndPermessions } from 'app/project/models/RoleIdAndPermessions';
 import { UIResponse } from 'app/project/Models/UIResponse';
 import { DxStoreService } from 'app/project/services/dx-store.service';
+import { PermessionsService } from 'app/project/services/permessions.service';
 import { RoleService } from 'app/project/services/Role.Service';
 import { SwalService } from 'app/project/services/swal.service';
 import { DxDataGridComponent, DxTreeListComponent } from 'devextreme-angular';
@@ -18,23 +19,38 @@ import { tap } from 'rxjs/operators';
 export class RoleManagementComponent implements OnInit {
   @ViewChild('RolesGrid') RolesGrid: DxDataGridComponent;
   @ViewChild('PermessionsTree') PermessionsTree: DxTreeListComponent;
-
+  UIPermessions: string[] = [];
+  AllowAdd = false;
+  AllowDelete = false;
+  AllowUpdate = false;
+  AllowUpdatingPermessions = false;
   rolesGridStore: CustomStore;
   permessionsListStore: CustomStore;
   constructor(public translate: TranslateService,
     private dxStore: DxStoreService,
     private RolesService: RoleService,
-    private swal: SwalService) {
+    private swal: SwalService,
+    private permessionService: PermessionsService) {
     this.treeListTitleDisplayValue = this.treeListTitleDisplayValue.bind(this)
+
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.InitlizePermessions();
     this.filGrid();
+  }
+
+  private async InitlizePermessions() {
+    const UIPermessions = await this.permessionService.permesions$.toPromise();
+    this.AllowAdd = UIPermessions.includes("ADD_ROLE");
+    this.AllowDelete = UIPermessions.includes("DELETE_ROLE");
+    this.AllowUpdate = UIPermessions.includes("UPDATE_ROLE");
+    this.AllowUpdatingPermessions = UIPermessions.includes("UPATE_PERMESSIONS");
   }
 
   filGrid() {
     let usersGridStoreOption: DxStoreOptions = {
-      loadUrl: "Roles/Get", insertUrl: "Roles/AddRoles", deleteUrl: "Roles/DeleteRole", deleteMethod: "POST", Key: "Id",
+      loadUrl: "Roles/Get", insertUrl: "Roles/Insert", updateUrl: "Update", deleteUrl: "Roles/Delete", deleteMethod: "POST", Key: "Id",
       onInserted: () => this.RolesGrid.instance.refresh(),
       onRemoved: () => this.RolesGrid.instance.refresh(),
       onUpdated: () => this.RolesGrid.instance.refresh()

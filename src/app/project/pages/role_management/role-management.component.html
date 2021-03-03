@@ -18,7 +18,7 @@
 
             <!-- CONTENT TOOLBAR -->
             <div class="toolbar primary px-24 py-8">
-                <span>{{translate.instant('ROLE_MANAGEMENT.TITLE')}}</span>
+                <span>{{'ROLE_MANAGEMENT.TITLE' | translate}}</span>
             </div>
             <!-- / CONTENT TOOLBAR -->
 
@@ -32,13 +32,13 @@
                     <dxi-column [caption]="'Id'" dataField="Id" [visible]="false" [formItem]="{visible: false}"
                         dataType="number">
                     </dxi-column>
-                    <dxi-column [caption]="translate.instant('ROLE_MANAGEMENT.ROLE_NAME')" dataField="RoleName">
+                    <dxi-column [caption]="'ROLE_MANAGEMENT.ROLE_NAME' | translate" dataField="RoleName">
                         <dxi-validation-rule type="required"></dxi-validation-rule>
                     </dxi-column>
-                    <dxo-editing mode="popup" [allowUpdating]="false" [allowDeleting]="true" [allowAdding]="true">
+                    <dxo-editing mode="popup" [allowUpdating]="AllowUpdate" [allowDeleting]="AllowDelete"
+                        [allowAdding]="AllowAdd">
                     </dxo-editing>
                     <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
-
                     <div *dxTemplate="let role of 'detail'">
                         <dx-tree-list #PermessionsTree id="tree-list" [dataSource]="permessionsListStore"
                             keyExpr="PermessionKey" parentIdExpr="ParentKey" hasItemsExpr="IsParent"
@@ -47,15 +47,16 @@
 
                             <dxo-selection mode="multiple" [recursive]="false">
                             </dxo-selection>
-                            <dxo-search-panel [visible]="true"></dxo-search-panel>
-                            <dxo-header-filter [visible]="true"></dxo-header-filter>
+                            <!-- <dxo-search-panel [visible]="true"></dxo-search-panel> -->
+                            <!-- <dxo-header-filter [visible]="true"></dxo-header-filter> -->
                             <dxi-column dataField="Id" [visible]="false" [formItem]="{visible: false}"></dxi-column>
                             <dxi-column dataField="PermessionKey" [calculateDisplayValue]="treeListTitleDisplayValue">
                             </dxi-column>
                         </dx-tree-list>
-                        <button (click)="Save(PermessionsTree.instance.getSelectedRowsData('all'),role.data.Id)"
+                        <button [disabled]="!AllowUpdatingPermessions"
+                            (click)="Save(PermessionsTree.instance.getSelectedRowsData('all'),role.data.Id)"
                             mat-raised-button color="accent" style="float: right;">
-                            {{translate.instant("ROLE_MANAGEMENT.SAVE")}}
+                            {{'ROLE_MANAGEMENT.SAVE' | translate}}
                         </button>
                     </div>
                 </dx-data-grid>
