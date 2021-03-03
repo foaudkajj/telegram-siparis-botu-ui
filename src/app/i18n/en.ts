@@ -1,6 +1,6 @@
 // Turkey
 export const locale = {
-    lang: 'tr',
+    lang: 'en',
     data: {
         TRANSLATOR: {
             SELECT: 'Dil Seçiniz ...',
@@ -54,8 +54,8 @@ export const locale = {
         NAV: {
             BOT_MANAGEMENT: "Bot Yönteimi",
             CATEGORIES: "Kategoriler",
-            USER_MANAGEMENT: "Kullanıcı Yöntetimi",
-            ROLE_MANAGEMENT: "Yetki Yöntetimi",
+            USER_MANAGEMENT: "USER Management",
+            ROLE_MANAGEMENT: "ROLE Management",
             ADMIN_MENUS: "Admin"
         },
         Messages: {

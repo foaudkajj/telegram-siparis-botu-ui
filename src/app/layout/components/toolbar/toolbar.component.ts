@@ -9,6 +9,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { navigation } from 'app/navigation/navigation';
 import { Router } from '@angular/router';
+import { LoginResponse } from 'app/project/Models/LoginResponse';
 
 @Component({
     selector: 'toolbar',
@@ -25,6 +26,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     navigation: any;
     selectedLanguage: any;
     userStatusOptions: any[];
+    UserName = (JSON.parse(localStorage.getItem('user')) as LoginResponse)?.UserName
 
     // Private
     private _unsubscribeAll: Subject<any>;

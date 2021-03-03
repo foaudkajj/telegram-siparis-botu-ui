@@ -13,11 +13,14 @@ import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.
 
 import { navigation } from 'app/navigation/navigation';
 // import { locale as navigationEnglish } from 'app/navigation/i18n/en';
-import { locale as navigationTurkish } from 'app/i18n/tr';
+import { locale as TurkishTranslations } from 'app/i18n/tr';
+import { locale as EnglishTranslations } from 'app/i18n/en';
 import { LoadPanelService } from './project/services/loadpnale.service';
 import { FuseNavigation } from '@fuse/types';
 import { LoginResponse } from './project/Models/LoginResponse';
-
+import { locale, loadMessages } from "devextreme/localization";
+import trMessages from "devextreme/localization/messages/tr.json";
+import config from 'devextreme/core/config';
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
@@ -61,27 +64,35 @@ export class AppComponent implements OnInit, OnDestroy {
             }, 0);
         });
 
-
+        // Load messages for Devextreme
+        loadMessages(trMessages);
+        locale('tr');
+        config({ defaultCurrency: 'TRY' });
         // Get default navigation
         // this.navigation = this.navigationItems;
 
-        // Register the navigation to the service
-        this._fuseNavigationService.register('main', this.navigationItems);
 
-        // Set the main navigation as our current navigation
-        this._fuseNavigationService.setCurrentNavigation('main');
+        if (this.navigationItems) {
+            // Register the navigation to the service
+            this._fuseNavigationService.register('main', this.navigationItems);
+            // Set the main navigation as our current navigation
+            this._fuseNavigationService.setCurrentNavigation('main');
+        }
+
 
         // Add languages
         this._translateService.addLangs(['en', 'tr']);
 
-        // Set the default language
-        this._translateService.setDefaultLang('tr');
-
         // Set the navigation translations
-        this._fuseTranslationLoaderService.loadTranslations(navigationTurkish);
+        this._fuseTranslationLoaderService.loadTranslations(TurkishTranslations, EnglishTranslations);
 
         // Use a language
-        this._translateService.use('en');
+        this._translateService.use('tr');
+
+        setTimeout(() => {
+            this._translateService.setDefaultLang('en');
+            this._translateService.setDefaultLang('tr');
+        }, 100);
 
         /**
          * ----------------------------------------------------------------------------------------------------

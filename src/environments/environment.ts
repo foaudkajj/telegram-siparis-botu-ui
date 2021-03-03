@@ -5,7 +5,9 @@
 export const environment = {
     production: false,
     hmr: false,
-    apiUrl: "http://localhost:3001/api/"
+    apiUrl: "http://localhost:3001/api/",
+    algorithm: 'aes-256-ctr',
+    secretKey: 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3'
 };
 
 /*
