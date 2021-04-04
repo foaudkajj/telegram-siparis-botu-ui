@@ -1,0 +1,135 @@
+<div id="maidDefenetion" class="page-layout carded fullwidth">
+
+    <!-- TOP BACKGROUND -->
+    <!-- <div class="top-bg accent"></div> -->
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- CONTENT HEADER -->
+        <!-- <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+            <h2 class="m-0">Full width with content scroll</h2>
+        </div> -->
+        <!-- / CONTENT HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT TOOLBAR -->
+            <div class="toolbar primary px-24 py-8">
+                <span>{{'CATEGORY.TITLE' | translate}}</span>
+            </div>
+            <!-- / CONTENT TOOLBAR -->
+
+            <!-- CONTENT -->
+
+            <div class="example-container mat-elevation-z8">
+
+                <dx-data-grid #Grid id="gridContainer" [allowColumnResizing]="true" [columnAutoWidth]="true"
+                    [remoteOperations]="true" [dataSource]="dataSource" [showBorders]="true"
+                    [masterDetail]="{ enabled: true, template: 'detail' }"
+                    (onEditorPreparing)="gridEditorPreparing($event)" (onInitNewRow)="gridInitNewRow($event)">
+                    <dxi-column [caption]="'Id'" dataField="Id" [visible]="false" [formItem]="{visible: false}"
+                        dataType="number">
+                    </dxi-column>
+
+                    <dxi-column [caption]="'ORDER.ORDER_NO' | translate" dataField="OrderNo">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column [caption]="'ORDER.TOTAL_PRICE' | translate" dataField="TotalPrice">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column [caption]="'ORDER.ORDER_STATUS' | translate" dataField="OrderStatus">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                        <dxo-lookup [dataSource]="items" displayExpr="Text" valueExpr="Value">
+                        </dxo-lookup>
+                    </dxi-column>
+                    <dxi-column sortOrder='desc' [caption]="'ORDER.CREATE_DATE' | translate" dataField="CreateDate"
+                        dataType="date" format="dd.MM.yyyy, HH:mm">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column [caption]="'ORDER.CUSTOMER.ADDRESS' | translate" dataField="customer.Address">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column [caption]="'ORDER.DESCRIPTION' | translate" dataField="Description">
+                    </dxi-column>
+                    <dxi-column [visible]="false" [caption]="'ORDER.CUSTOMER.FIRST_NAME' | translate"
+                        dataField="customer.FirstName">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column [visible]="false" [caption]="'ORDER.CUSTOMER.LAST_NAME' | translate"
+                        dataField="LastName">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column [visible]="false" [caption]="'ORDER.CUSTOMER.PHONE_NUMBER' | translate"
+                        dataField="PhoneNumber">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column cellTemplate="customerNameCellTemplate"
+                        [caption]="'ORDER.CUSTOMER.USER_NAME' | translate" dataField="customer.Username">
+                    </dxi-column>
+                    <dxi-column cellTemplate="locationCellTemplate" [caption]="'ORDER.CUSTOMER.LOCATION' | translate"
+                        dataField="customer.Location">
+                    </dxi-column>
+                    <dxi-column cellTemplate="operationsCellTemplate" [caption]="'ORDER.ORDER_OPERATIONS' | translate"
+                        [formItem]="{visible: false}">
+                    </dxi-column>
+                    <div *dxTemplate="let row of 'locationCellTemplate'">
+                        <button mat-raised-button color="accent" [disabled]="!row.data.customer?.Location"
+                            (click)="DirectToLocation(row.data)">
+                            {{ 'ORDER.DIRECT_TO_LOCATION' | translate}}
+                        </button>
+                    </div>
+                    <div *dxTemplate="let row of 'customerNameCellTemplate'">
+                        <button mat-raised-button color="accent" [disabled]="!row.data.customer?.Username"
+                            (click)="GetInTouch(row.data)">
+                            {{ 'ORDER.GET_IN_TOUCH' | translate}}
+                        </button>
+                    </div>
+                    <div *dxTemplate="let row of 'operationsCellTemplate'">
+                        <dx-drop-down-button [text]=" 'ORDER.OPERATIONS_BUTTON'|translate"
+                            [dropDownOptions]="{ width: 230 }" icon="save" [items]="row.data.OperationItems"
+                            displayExpr="Text" keyExpr="Value" (onItemClick)="onOperationItemClick($event,row)"
+                            itemTemplate="dxdropdowntemplate">
+                            <div *dxTemplate="let data of 'dxdropdowntemplate'">
+                                {{data.Text | translate}}
+                            </div>
+                        </dx-drop-down-button>
+                    </div>
+
+                    <dxo-editing mode="popup" [allowUpdating]="AllowUpdate" [allowDeleting]="false"
+                        [allowAdding]="AllowAdd">
+                        <dxo-popup title="" [width]="'auto'" [height]="'auto'">
+                        </dxo-popup>
+                    </dxo-editing>
+                    <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+
+
+                    <div *dxTemplate="let order of 'detail'">
+                        <dx-data-grid #Grid id="mastergridContainer" [allowColumnResizing]="true"
+                            [columnAutoWidth]="true" [dataSource]="[order.data.customer]" [showBorders]="true">
+                            <dxi-column [caption]="'ORDER.CUSTOMER.ID' | translate" dataField="Id">
+                                <dxi-validation-rule type="required"></dxi-validation-rule>
+                            </dxi-column>
+                            <dxi-column [caption]="'ORDER.CUSTOMER.USER_NAME' | translate" dataField="Username">
+                                <dxi-validation-rule type="required"></dxi-validation-rule>
+                            </dxi-column>
+                            <dxi-column [caption]="'ORDER.CUSTOMER.FIRST_NAME' | translate" dataField="FirstName">
+                                <dxi-validation-rule type="required"></dxi-validation-rule>
+                            </dxi-column>
+                            <dxi-column [caption]="'ORDER.CUSTOMER.LAST_NAME' | translate" dataField="LastName">
+                                <dxi-validation-rule type="required"></dxi-validation-rule>
+                            </dxi-column>
+                            <dxi-column [caption]="'ORDER.CUSTOMER.PHONE_NUMBER' | translate" dataField="PhoneNumber">
+                                <dxi-validation-rule type="required"></dxi-validation-rule>
+                            </dxi-column>
+                            <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+                        </dx-data-grid>
+                    </div>
+                </dx-data-grid>
+
+            </div>
+        </div>
+    </div>
+</div>
