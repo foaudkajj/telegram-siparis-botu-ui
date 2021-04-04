@@ -4,7 +4,7 @@ export const navigation: FuseNavigation[] = [
     {
         id: 'botmanagement',
         title: 'Bot Management',
-        translate: 'NAV.BOT_MANAGEMENT',
+        translate: 'NAV.SETTINGS',
         type: 'collapsable',
         children: [
             {
