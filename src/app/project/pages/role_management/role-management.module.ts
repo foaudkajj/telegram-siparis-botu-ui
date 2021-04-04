@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { RoleManagementRoutingModule } from './role-management-routing.module';
 import { RoleManagementComponent } from './role-management.component';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { DxTreeListModule } from 'devextreme-angular/ui/tree-list';
 import { MatButtonModule } from '@angular/material/button';
+import { GetService } from 'app/project/services/get.service';
 import { RoleService } from 'app/project/services/Role.Service';
 
 
@@ -18,7 +18,8 @@ import { RoleService } from 'app/project/services/Role.Service';
     MatButtonModule
   ],
   providers: [
-    RoleService
+    RoleService,
+    GetService
   ]
 })
 export class RoleManagementModule { }

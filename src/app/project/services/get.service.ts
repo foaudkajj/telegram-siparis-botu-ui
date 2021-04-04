@@ -5,14 +5,21 @@ import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
 import { RoleIdAndPermessions } from '../models/RoleIdAndPermessions';
 
-@Injectable()
-export class RoleService extends BaseService {
+@Injectable({
+    providedIn: 'root'
+})
+export class GetService extends BaseService {
     constructor(httpClient: HttpClient, router: Router) {
         super(httpClient, router);
     }
 
-    SaveRolePermessions(roleIdAndPermessions: RoleIdAndPermessions): Observable<any> {
-        let result$ = this.post(`Roles/SaveRolePermessions`, roleIdAndPermessions);
+    GetCategories(): Observable<any> {
+        let result$ = this.get(`Category/Get`);
+        return result$;
+    }
+
+    GetRoles(): Observable<any> {
+        let result$ = this.get(`Roles/Get`);
         return result$;
     }
 

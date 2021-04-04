@@ -3,8 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { DxStoreOptions } from 'app/project/Models/DxStoreOptions';
 import { Role } from 'app/project/models/Role';
 import { DxStoreService } from 'app/project/services/dx-store.service';
+import { GetService } from 'app/project/services/get.service';
 import { PermessionsService } from 'app/project/services/permessions.service';
-import { RoleService } from 'app/project/services/Role.Service';
 import { DxDataGridComponent } from 'devextreme-angular';
 import CustomStore from 'devextreme/data/custom_store';
 
@@ -21,7 +21,7 @@ export class UserManagementComponent implements OnInit {
   store: CustomStore;
   UserStatus = [{ Id: 1, Name: 'Aktif' }, { Id: 0, Name: 'Pasif' }];
   constructor(public translate: TranslateService,
-    private roleService: RoleService,
+    private getService: GetService,
     private dxStore: DxStoreService,
     private permessionService: PermessionsService) { }
 
@@ -42,7 +42,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   getRoles() {
-    this.roleService.GetRoles().toPromise().then(res => this.rolList = (res.data as Role[]));
+    this.getService.GetRoles().toPromise().then(res => this.rolList = (res.data as Role[]));
   }
   filTable() {
     let storeOption: DxStoreOptions = {

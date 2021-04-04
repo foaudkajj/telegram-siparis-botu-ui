@@ -37,6 +37,8 @@
                     </dxi-column>
                     <dxo-editing mode="popup" [allowUpdating]="AllowUpdate" [allowDeleting]="AllowDelete"
                         [allowAdding]="AllowAdd">
+                        <dxo-popup [width]="'auto'" [height]="'auto'">
+                        </dxo-popup>
                     </dxo-editing>
                     <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
                     <div *dxTemplate="let role of 'detail'">

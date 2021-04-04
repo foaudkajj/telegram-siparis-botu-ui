@@ -5,6 +5,7 @@ import { UserManagementRoutingModule } from './user-management-routing.module';
 import { UserManagementComponent } from './user-management.component';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { RoleService } from 'app/project/services/Role.Service';
+import { GetService } from 'app/project/services/get.service';
 
 
 @NgModule({
@@ -13,6 +14,6 @@ import { RoleService } from 'app/project/services/Role.Service';
     FuseSharedModule,
     UserManagementRoutingModule
   ],
-  providers: [RoleService]
+  providers: [GetService]
 })
 export class UserManagementModule { }
