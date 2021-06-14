@@ -12,7 +12,7 @@ export class RoleService extends BaseService {
     }
 
     SaveRolePermessions(roleIdAndPermessions: RoleIdAndPermessions): Observable<any> {
-        let result$ = this.post(`Roles/SaveRolePermessions`, roleIdAndPermessions);
+        let result$ = this.post<any>(`Roles/SaveRolePermessions`, roleIdAndPermessions);
         return result$;
     }
 

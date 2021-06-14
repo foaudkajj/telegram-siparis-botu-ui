@@ -60,7 +60,10 @@ export const locale = {
             PRODUCTS: "Products",
             ORDERS: "Sipariş Yönetimi",
             PRODUCT_MANAGEMENT: 'Product Management',
-            TELEGRAM_SETTINGS: 'Telegram Bot Settings'
+            TELEGRAM_SETTINGS: 'Telegram Bot Settings',
+            ENTEGRATIONS: 'Entegrations',
+            YEMEKSEPETI: 'Yemeksepetei',
+            GETIR: 'Getir'
         },
         BOT:
         {
@@ -111,6 +114,12 @@ export const locale = {
                     ADDRESS: 'Adres'
                 }
             }
+        },
+        GETIR: {
+            TITLE: 'Getir'
+        },
+        YEMEKSEPETI: {
+            TITLE: 'YemekSepeti'
         },
         Messages: {
             SuccessMessage: "{{Item}} başarıyla eklendi",

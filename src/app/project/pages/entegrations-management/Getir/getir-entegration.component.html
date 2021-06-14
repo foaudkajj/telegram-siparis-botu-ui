@@ -1,0 +1,221 @@
+<div id="maidDefenetion" class="page-layout carded fullwidth">
+
+    <!-- TOP BACKGROUND -->
+    <!-- <div class="top-bg accent"></div> -->
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- CONTENT HEADER -->
+        <!-- <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+            <h2 class="m-0">Full width with content scroll</h2>
+        </div> -->
+        <!-- / CONTENT HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT TOOLBAR -->
+            <div class="toolbar primary px-24 py-8">
+                <span>{{'GETIR.TITLE' | translate}}</span>
+            </div>
+            <!-- / CONTENT TOOLBAR -->
+            <!--  -->
+            <dx-tab-panel (onOptionChanged)="panelItemChanged($event)" #tabPanel [loop]="false"
+                [animationEnabled]="false" [swipeEnabled]="false">
+
+                <dxi-item title="Ürünler" [dataField]="'Products'">
+
+                    <dx-data-grid #MenusOptionsGrid id="gridContainer" [allowColumnResizing]="true"
+                        [columnAutoWidth]="true" [remoteOperations]="true" [dataSource]="restaurantMenuAndOptionsDS"
+                        [showBorders]="true" (onRowPrepared)='menusOptionsGridOnRowPrepared($event)'
+                        [masterDetail]="{ enabled: true, template: 'products',autoExpandAll:true }">
+                        <!-- <!-- <dxi-column dataField="key" caption="Store" [width]="150" [groupIndex]="0"></dxi-column> -->
+                        <dxi-column dataField="name.tr" [caption]="'GETIR.CATEGORY_NAME' | translate"></dxi-column>
+                        <dxi-column dataField="status" [caption]="'GETIR.CATEGORY_STATUS'| translate"
+                            [formItem]="{visible: false}" cellTemplate="activateDeactivateCategoryCellTemplate">
+                        </dxi-column>
+                        <div *dxTemplate="let row of 'activateDeactivateCategoryCellTemplate'">
+                            <dx-check-box [readOnly]=true [value]="row.data.status == 100 ? true : false">
+                                <!-- (onValueChanged)="ActivateDeactivateCategoryStatus($event,row.data)" -->
+                            </dx-check-box>
+                        </div>
+                        <!-- <dxi-column dataField="ProductCategoryName" caption="Category" [width]="120" [groupIndex]="1">
+                        </dxi-column> -->
+                        <!-- <dxo-editing mode="popup" [allowDeleting]="true" [allowAdding]="true">
+                            <dxo-popup title="" [height]="'auto'">
+                            </dxo-popup>
+                        </dxo-editing> -->
+                        <!-- <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling> -->
+
+                        <div *dxTemplate="let productData of 'products'">
+                            <dx-data-grid #productsGrid id="gridContainer" [dataSource]="productData.data.products"
+                                [showBorders]="true" (onRowPrepared)='productsGridOnRowPrepared($event)'
+                                [masterDetail]="{ enabled: true, template: 'options',autoExpandAll:true }">
+                                <dxi-column dataField="name.tr" [caption]="'GETIR.PRODUCT_NAME' | translate">
+                                </dxi-column>
+                                <dxi-column dataField="description.tr" [caption]="'GETIR.DESCRIPTION' | translate">
+                                </dxi-column>
+                                <dxi-column dataField="price" [caption]="'GETIR.PRICE' | translate"></dxi-column>
+                                <dxi-column dataField="struckPrice" [caption]="'GETIR.STRUCK_PRICE' | translate">
+                                </dxi-column>
+                                <dxi-column dataField="status" [caption]="'GETIR.PRODUCT_STAUTS' | translate"
+                                    [formItem]="{visible: false}" cellTemplate="activateDeactivateProductCellTemplate">
+                                </dxi-column>
+                                <dxi-column dataField="isApproved" [caption]="'GETIR.IS_PRODUCT_APPROVERD' | translate">
+                                </dxi-column>
+                                <!-- <dxi-column dataField="imageURL" [caption]="'GETIR.IMAGE_URL' | translate"></dxi-column>
+                                <dxi-column dataField="wideImageURL" [caption]="'GETIR.WIDE_IMAGE_URL' | translate">
+                                </dxi-column> -->
+                                <div *dxTemplate="let row of 'activateDeactivateProductCellTemplate'">
+                                    <dx-switch [value]="row.data.status == 100 ? true : false"
+                                        (onValueChanged)="ActivateDeactivateProductStatus($event,row.data)">
+                                    </dx-switch>
+                                </div>
+
+                                <div *dxTemplate="let optionsData of 'options'">
+
+                                    <ng-container *ngFor='let category of optionsData.data.optionCategories'>
+                                        <h2>{{'GETIR.PRODUCT_OPTION_NAME'|translate}}: {{category?.name?.tr}}</h2>
+                                        <h3>{{'GETIR.PRODUCT_SUB_OPTION_NAME'|translate}}:</h3>
+                                        <dx-data-grid #subOptions id="gridContainer" [dataSource]="category.options"
+                                            [showBorders]="true" (onRowPrepared)='subOptionsOnRowPrepared($event)'>
+                                            <dxi-column dataField="name.tr"
+                                                [caption]="'GETIR.SUB_OPTION_NAME' | translate"></dxi-column>
+                                            <dxi-column dataField="status" caption="durum" [formItem]="{visible: false}"
+                                                cellTemplate="activateDeactivateSubOptionCellTemplate"></dxi-column>
+                                            <div *dxTemplate="let row of 'activateDeactivateSubOptionCellTemplate'">
+                                                <dx-switch [value]="row.data.status == 100 ? true : false"
+                                                    (onValueChanged)="ActivateDeactivateSubOption($event,row.data,category)">
+                                                </dx-switch>
+                                            </div>
+                                        </dx-data-grid>
+                                    </ng-container>
+
+                                </div>
+                            </dx-data-grid>
+                        </div>
+                    </dx-data-grid>
+
+                </dxi-item>
+
+                <!-- <dxi-item title="Opsiyonlar" [dataField]="'Options'">
+
+                    <dx-data-grid #MenusOptionsGrid id="gridContainer" [allowColumnResizing]="true"
+                        [columnAutoWidth]="true" [remoteOperations]="true" [dataSource]="restaurantOptionsDS"
+                        [showBorders]="true">
+                        <dxi-column dataField="name.tr" caption="name"></dxi-column>
+                        <dxi-column dataField="clientDisplayName.tr" caption="Müşteri Gösterim Adı"></dxi-column>
+                        <dxi-column dataField="status" caption="durum" [formItem]="{visible: false}"
+                            cellTemplate="activateDeactivateCategoryCellTemplate"></dxi-column>
+                        <div *dxTemplate="let row of 'activateDeactivateCategoryCellTemplate'">
+                            <dx-switch [value]="row.data.status == 100 ? true : false"
+                                (onValueChanged)="ActivateDeactivateOptionProduct($event,row.data)">
+                            </dx-switch>
+                        </div>
+                    </dx-data-grid>
+
+                </dxi-item> -->
+
+                <dxi-item [title]="'GETIR.PAYMENT_METHODS' | translate" [dataField]="'PaymentMethods'">
+
+                    <!-- <dx-list #paymentMethodsList [dataSource]="paymentMethodsDS" [showSelectionControls]="true"
+                        [selectionMode]="'multiple'" [selectedItemKeys]="selectedItemsIds" pageLoadMode="scrollBottom"
+                        (onItemClick)='paymentMethodOnItemClick($event)' [displayExpr]="paymentMethodsListDisplayExpr">
+
+                    </dx-list> -->
+                    <dx-data-grid #Grid id="gridContainer" [allowColumnResizing]="true" [columnAutoWidth]="true"
+                        [remoteOperations]="true" [dataSource]="restaurantPaymentMethodsDS" [showBorders]="true">
+
+                        <dxi-column [allowEditing]="false" [formItem]="{visible: false}"
+                            cellTemplate="paymentMethodIconCellTemplate" [caption]="'GETIR.PAYMENT_ICON' | translate"
+                            dataField="icon">
+                        </dxi-column>
+                        <dxi-column [formItem]="{visible: false}" cellTemplate="activateDeactivateCellTemplate"
+                            [caption]="'GETIR.PAYMENT_ACTIVE_PASSIVE' | translate" dataField="active">
+                        </dxi-column>
+                        <dxi-column [caption]="'GETIR.PAYMENT_NAME' | translate" dataField="id">
+                            <dxi-validation-rule type="required"></dxi-validation-rule>
+                            <dxo-lookup [dataSource]="allPaymentMethodsStore" displayExpr="name.tr" valueExpr="id">
+                            </dxo-lookup>
+                        </dxi-column>
+
+
+                        <div *dxTemplate="let row of 'activateDeactivateCellTemplate'">
+                            <dx-switch [value]="row.data.active" (onValueChanged)="ActivateDeactivate($event,row.data)">
+                            </dx-switch>
+                        </div>
+
+                        <div *dxTemplate="let row of 'paymentMethodIconCellTemplate'">
+                            <img [src]="row.data.icon">
+                        </div>
+                        <dxo-editing mode="popup" [allowDeleting]="true" [allowAdding]="true">
+                            <dxo-popup title="" [height]="'auto'">
+                            </dxo-popup>
+                        </dxo-editing>
+                        <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+                    </dx-data-grid>
+
+
+
+
+                </dxi-item>
+
+                <dxi-item [title]="'GETIR.RESTAURANT_COURIER_AVAILIBILITY' | translate"
+                    [dataField]="'CourierAvailibility'">
+                    <dx-form #formInstance [showColonAfterLabel]="true" labelLocation='top' colCount="2">
+                        <dxi-item dataField="name" [editorOptions]="{ disabled: true }"
+                            [label]='{text:("GETIR.RESTAURANT_NAME" | translate)}'></dxi-item>
+                        <dxi-item dataField="status" editorType='dxSwitch'
+                            [label]='{text:("GETIR.RESTAURANT_STATUS" | translate)}'
+                            [editorOptions]="{onValueChanged:FormFieldValueChanged.bind( this,{dataField:'status'} )}">
+                        </dxi-item>
+                        <dxi-item dataField="averagePreparationTime" editorType='dxNumberBox'
+                            [label]='{text:("GETIR.AVERAGE_PREPARATION_TIME" | translate)}'
+                            [editorOptions]="{min: 1,onValueChanged:FormFieldValueChanged.bind( this,{dataField:'averagePreparationTime'} )}">
+                        </dxi-item>
+                        <dxi-item dataField="isCourierAvailable" editorType='dxSwitch'
+                            [label]='{text:("GETIR.COURIER_STATUS" | translate)}'
+                            [editorOptions]="{onValueChanged:FormFieldValueChanged.bind( this,{dataField:'isCourierAvailable'} )}">
+                        </dxi-item>
+                        <!-- <dxi-item dataField="isCourierAvailable" editorType='dxSwitch'
+                            [label]='{text:("GETIR.COURIER_STATUS" | translate)}'
+                            [editorOptions]="{onValueChanged:FormFieldValueChanged.bind( this,{dataField:'isCourierAvailable'} )}">
+                        </dxi-item> -->
+
+                        <dxi-item name="submitButton" itemType="button" horizontalAlignment="left"
+                            [buttonOptions]="formSubmitButtonOptions">
+                        </dxi-item>
+                    </dx-form>
+                    <!-- <div class="form">
+                        <div class="dx-fieldset">
+                            <div class="dx-field">
+                                <div class="dx-field-label">{{'GETIR.RESTAURANT_AVAILIBILITY'| translate}}</div>
+                                <div class="dx-field-value">
+                                    <dx-switch [value]="CourierRestaurantStatus.Restaurant"></dx-switch>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dx-fieldset">
+                            <div class="dx-field">
+                                <div class="dx-field-label">{{'GETIR.COURIER_AVAILIBILITY'| translate}}</div>
+                                <div class="dx-field-value">
+                                    <dx-switch [value]="CourierRestaurantStatus.Courier"></dx-switch>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </dxi-item>
+
+            </dx-tab-panel>
+            <!-- CONTENT -->
+
+            <div class="example-container mat-elevation-z8">
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

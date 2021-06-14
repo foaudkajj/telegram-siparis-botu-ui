@@ -8,13 +8,13 @@ import { environment } from 'environments/environment';
 export class BaseService {
 	constructor(public httpClient: HttpClient, private router: Router) { }
 
-	get(url: string, options?: Object) {
-		return this.httpClient.get(environment.apiUrl + url, options);
+	get<T>(url: string, options?: Object) {
+		return this.httpClient.get<T>(environment.apiUrl + url, options);
 	}
-	post(url: string, payload: any, options?: Object) {
+	post<T>(url: string, payload: any, options?: Object) {
 		// const formData = new FormData();
 		// formData.append('values', JSON.stringify(payload));
-		return this.httpClient.post(environment.apiUrl + url, payload, options);
+		return this.httpClient.post<T>(environment.apiUrl + url, payload, options);
 	}
 	put(url: string, payload: any, options?: Object) {
 		return this.httpClient.put(environment.apiUrl + url, payload, options);

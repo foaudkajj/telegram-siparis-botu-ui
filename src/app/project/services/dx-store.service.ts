@@ -30,7 +30,8 @@ export class DxStoreService {
             deleteMethod: storeOptions.deleteMethod,
             loadMode: storeOptions.loadMode,
             onInserted: (values: UIResponse<any>, key) => {
-                storeOptions.onInserted(values, key);
+                if (storeOptions.onInserted)
+                    storeOptions.onInserted(values, key);
                 if (!values.IsError)
                     this.swal.showSuccessMessage();
             },

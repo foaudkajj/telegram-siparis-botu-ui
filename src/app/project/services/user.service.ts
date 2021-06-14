@@ -22,7 +22,7 @@ export class UserService extends BaseService {
     }
 
     Login(loginRequest: LoginRequest): Observable<any> {
-        let result$ = this.post(`User/Login`, loginRequest)
+        let result$ = this.post<UIResponse<LoginResponse>>(`User/Login`, loginRequest)
             .pipe(
                 tap((data: UIResponse<LoginResponse>) => {
                     if (data.Result.IsAuthenticated) {
