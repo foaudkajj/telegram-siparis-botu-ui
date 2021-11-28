@@ -83,14 +83,15 @@ export const locale = {
                 CAPTION: "Caption",
                 PRODUCT_CODE: "Product Code",
                 UNIT_PRICE: "Unit Price",
-                CATEGORY_KEY: "Category"
+                CATEGORY_KEY: "Category",
+                GETIR_IMPORT_UPDATE_BTN: 'Import/Update Getir'
             },
             ORDER: {
                 TITLE: 'Order Management',
                 ORDER_NO: 'Order No.',
                 ORDER_STATUS: 'Order Status',
                 CREATE_DATE: 'Create Date',
-                DESCRIPTION: 'Description',
+                Note: 'Note',
                 USER_ID: 'User Id',
                 AMOUNT: 'Amount',
                 TOTAL_PRICE: 'Amount',
@@ -104,11 +105,12 @@ export const locale = {
                 SENT: 'Sent',
                 CANCELED: 'Canceled',
                 DELIVERED: 'Delivered',
+                UNIT_PRICE: "Unit Price",
+                PRODUCT_DESCRIPTION: 'Product',
                 CUSTOMER: {
                     ID: 'Kullanıcı Id',
                     USER_NAME: 'Kullanıcı Adı',
-                    FIRST_NAME: 'İsim',
-                    LAST_NAME: 'Son İsim',
+                    FULL_NAME: 'İsim',
                     LOCATION: 'Konum',
                     PHONE_NUMBER: 'Tel. No',
                     ADDRESS: 'Adres'

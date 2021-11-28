@@ -49,8 +49,8 @@
                         </dxo-editing> -->
                         <!-- <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling> -->
 
-                        <div *dxTemplate="let productData of 'products'">
-                            <dx-data-grid #productsGrid id="gridContainer" [dataSource]="productData.data.products"
+                        <div *dxTemplate="let categoryData of 'products'">
+                            <dx-data-grid #productsGrid id="gridContainer" [dataSource]="categoryData.data.products"
                                 [showBorders]="true" (onRowPrepared)='productsGridOnRowPrepared($event)'
                                 [masterDetail]="{ enabled: true, template: 'options',autoExpandAll:true }">
                                 <dxi-column dataField="name.tr" [caption]="'GETIR.PRODUCT_NAME' | translate">
@@ -74,9 +74,9 @@
                                     </dx-switch>
                                 </div>
 
-                                <div *dxTemplate="let optionsData of 'options'">
+                                <div *dxTemplate="let productData of 'options'">
 
-                                    <ng-container *ngFor='let category of optionsData.data.optionCategories'>
+                                    <ng-container *ngFor='let category of productData.data.optionCategories'>
                                         <h2>{{'GETIR.PRODUCT_OPTION_NAME'|translate}}: {{category?.name?.tr}}</h2>
                                         <h3>{{'GETIR.PRODUCT_SUB_OPTION_NAME'|translate}}:</h3>
                                         <dx-data-grid #subOptions id="gridContainer" [dataSource]="category.options"
@@ -87,7 +87,7 @@
                                                 cellTemplate="activateDeactivateSubOptionCellTemplate"></dxi-column>
                                             <div *dxTemplate="let row of 'activateDeactivateSubOptionCellTemplate'">
                                                 <dx-switch [value]="row.data.status == 100 ? true : false"
-                                                    (onValueChanged)="ActivateDeactivateSubOption($event,row.data,category)">
+                                                    (onValueChanged)="UpdateOptionStatusInSpecificProductAndCategory($event,row.data,category,productData)">
                                                 </dx-switch>
                                             </div>
                                         </dx-data-grid>
@@ -100,7 +100,7 @@
 
                 </dxi-item>
 
-                <!-- <dxi-item title="Opsiyonlar" [dataField]="'Options'">
+                <dxi-item title="Opsiyon Ürünler" [dataField]="'Options'">
 
                     <dx-data-grid #MenusOptionsGrid id="gridContainer" [allowColumnResizing]="true"
                         [columnAutoWidth]="true" [remoteOperations]="true" [dataSource]="restaurantOptionsDS"
@@ -110,13 +110,25 @@
                         <dxi-column dataField="status" caption="durum" [formItem]="{visible: false}"
                             cellTemplate="activateDeactivateCategoryCellTemplate"></dxi-column>
                         <div *dxTemplate="let row of 'activateDeactivateCategoryCellTemplate'">
-                            <dx-switch [value]="row.data.status == 100 ? true : false"
+                            <!-- <dx-switch [value]="row.data.status == 100 ? true : false"
                                 (onValueChanged)="ActivateDeactivateOptionProduct($event,row.data)">
-                            </dx-switch>
+                            </dx-switch> -->
+                            <button mat-raised-button color="accent"
+                                (click)="ActivateDeactivateOptionProduct(row.data,100)">
+                                {{ ( 'GETIR.ACTIVE_OPTION_PRODUCT' 
+                                ) |
+                                translate}}
+                            </button>
+
+                            <button mat-raised-button color="accent"
+                            (click)="ActivateDeactivateOptionProduct(row.data,200)">
+                            {{ ('GETIR.INACTIVE_OPTION_PRODUCT') |
+                            translate}}
+                        </button>
                         </div>
                     </dx-data-grid>
 
-                </dxi-item> -->
+                </dxi-item>
 
                 <dxi-item [title]="'GETIR.PAYMENT_METHODS' | translate" [dataField]="'PaymentMethods'">
 

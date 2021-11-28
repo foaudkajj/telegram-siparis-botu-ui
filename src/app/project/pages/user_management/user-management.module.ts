@@ -1,19 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
 
-import { UserManagementRoutingModule } from './user-management-routing.module';
-import { UserManagementComponent } from './user-management.component';
-import { FuseSharedModule } from '@fuse/shared.module';
-import { RoleService } from 'app/project/services/Role.Service';
-import { GetService } from 'app/project/services/get.service';
-
+import {UserManagementRoutingModule} from './user-management-routing.module';
+import {UserManagementComponent} from './user-management.component';
+import {FuseSharedModule} from '@fuse/shared.module';
+import {GetService} from 'app/project/services';
 
 @NgModule({
   declarations: [UserManagementComponent],
-  imports: [
-    FuseSharedModule,
-    UserManagementRoutingModule
-  ],
-  providers: [GetService]
+  imports: [FuseSharedModule, UserManagementRoutingModule],
+  providers: [GetService],
 })
-export class UserManagementModule { }
+export class UserManagementModule {}

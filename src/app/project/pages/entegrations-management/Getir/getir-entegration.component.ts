@@ -17,7 +17,7 @@ export class GetirEntegrationComponent implements OnInit {
   restaurantPaymentMethodsDS: DataSource;
   allPaymentMethodsStore: Store;
   restaurantMenuAndOptionsDS: DataSource;
-  // restaurantOptionsDS: DataSource;
+  restaurantOptionsDS: DataSource;
   selectedItemsIds = [];
   CourierRestaurantStatus = { Courier: false, Restaurant: false };
   formSubmitButtonOptions = {};
@@ -64,14 +64,14 @@ export class GetirEntegrationComponent implements OnInit {
 
 
       }
-      // else if (e.value.dataField == 'Options') {
-      //   this.restaurantOptionsDS = new DataSource({
-      //     store: this.dxStore.GetStore({
-      //       loadUrl: "Getir/GetOptionProdcuts", Key: "id"
-      //     })
-      //   });
+      else if (e.value.dataField == 'Options') {
+        this.restaurantOptionsDS = new DataSource({
+          store: this.dxStore.GetStore({
+            loadUrl: "Getir/GetOptionProdcuts", Key: "id"
+          })
+        });
 
-      // }
+      }
       else if (e.value.dataField == 'CourierAvailibility') {
         this.formSubmitButtonOptions = {
           text: this.translate.instant('COMMON.SAVE'),
@@ -116,8 +116,8 @@ export class GetirEntegrationComponent implements OnInit {
   //     this.swal.showErrorMessage();
   //   }
   // }
-  async ActivateDeactivateOptionProduct(e, data) {
-    const response = await this.getirService.ActivateDeactivateOptionProduct(data.id, e.value).toPromise()
+  async ActivateDeactivateOptionProduct( data,status) {
+    const response = await this.getirService.ActivateDeactivateOptionProduct(data.id, status).toPromise()
     this.paymentMethodsGridInstance.instance.refresh()
     if (!response.IsError) {
       this.swal.showSuccessMessage();
@@ -151,16 +151,9 @@ export class GetirEntegrationComponent implements OnInit {
     }
   }
 
-  async ActivateDeactivateSubOption(e, options, category) {
-    console.log(e)
-    console.log("options", options)
-    console.log("category", category)
-    let response: UIResponse<object>;
-    if (options?.optionProduct) {
-      response = await this.getirService.ActivateInActiveOptions(options.optionProduct, e.value).toPromise()
-    } else {
-      response = await this.getirService.ActivateInActiveProductsAsOptions(options.product, e.value).toPromise()
-    }
+
+  async UpdateOptionStatusInSpecificProductAndCategory(e, option, category, productData) {
+    let response: UIResponse<object> = await this.getirService.UpdateOptionStatusInSpecificProductAndCategory(productData.data.id, category.id, option.id, e.value).toPromise()
 
     this.menusOptionsGrid.instance.refresh()
     if (!response.IsError) {

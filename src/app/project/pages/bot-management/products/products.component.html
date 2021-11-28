@@ -1,79 +1,91 @@
 <div id="maidDefenetion" class="page-layout carded fullwidth">
+  <!-- TOP BACKGROUND -->
+  <!-- <div class="top-bg accent"></div> -->
+  <!-- / TOP BACKGROUND -->
 
-    <!-- TOP BACKGROUND -->
-    <!-- <div class="top-bg accent"></div> -->
-    <!-- / TOP BACKGROUND -->
-
-    <!-- CENTER -->
-    <div class="center">
-
-        <!-- CONTENT HEADER -->
-        <!-- <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+  <!-- CENTER -->
+  <div class="center">
+    <!-- CONTENT HEADER -->
+    <!-- <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
             <h2 class="m-0">Full width with content scroll</h2>
         </div> -->
-        <!-- / CONTENT HEADER -->
+    <!-- / CONTENT HEADER -->
 
-        <!-- CONTENT CARD -->
-        <div class="content-card">
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+      <!-- CONTENT TOOLBAR -->
+      <div class="toolbar primary px-24 py-8">
+        <span>{{ 'PRODUCT.TITLE' | translate }}</span>
+      </div>
+      <!-- / CONTENT TOOLBAR -->
 
-            <!-- CONTENT TOOLBAR -->
-            <div class="toolbar primary px-24 py-8">
-                <span>{{'PRODUCT.TITLE' | translate}}</span>
-            </div>
-            <!-- / CONTENT TOOLBAR -->
+      <!-- CONTENT -->
 
-            <!-- CONTENT -->
-
-            <div class="example-container mat-elevation-z8">
-
-                <dx-data-grid #Grid id="gridContainer" [allowColumnResizing]="true" [columnAutoWidth]="true"
-                    [remoteOperations]="true" [dataSource]="store" [showBorders]="true"
-                    (onEditorPreparing)="gridEditorPreparing($event)" (onInitNewRow)="onInitNewRow($event)">
-                    <dxi-column [caption]="'Id'" dataField="Id" [visible]="false" [formItem]="{visible: false}"
-                        dataType="number">
-                    </dxi-column>
-                    <dxi-column [caption]="'PRODUCT.TYPE' | translate" dataField="Type" [formItem]="{visible: false}">
-                        <dxi-validation-rule type="required"></dxi-validation-rule>
-                    </dxi-column>
-                    <dxi-column [caption]="'PRODUCT.THUMB_URL' | translate" dataField="ThumbUrl">
-                        <dxi-validation-rule type="required"></dxi-validation-rule>
-                    </dxi-column>
-                    <dxi-column [caption]="'PRODUCT.PRODUCT_TITLE' | translate" dataField="Title">
-                        <dxi-validation-rule type="required"></dxi-validation-rule>
-                    </dxi-column>
-                    <dxi-column [caption]="'PRODUCT.DESCRIPTION' | translate" dataField="Description">
-                        <dxi-validation-rule type="required"></dxi-validation-rule>
-                    </dxi-column>
-                    <!-- <dxi-column [caption]="'PRODUCT.CAPTION' | translate" dataField="Caption">
+      <div class="example-container mat-elevation-z8">
+        <dx-data-grid
+          #Grid
+          id="gridContainer"
+          [allowColumnResizing]="true"
+          [columnAutoWidth]="true"
+          [remoteOperations]="true"
+          [dataSource]="DS"
+          [showBorders]="true"
+          [wordWrapEnabled]="true"
+          (onEditorPreparing)="gridEditorPreparing($event)"
+          (onInitNewRow)="onInitNewRow($event)"
+        >
+          <dxi-column [caption]="'Id'" dataField="Id" [visible]="false" [formItem]="{visible: false}" dataType="number"> </dxi-column>
+          <!-- <dxi-column
+                        [caption]="'PRODUCT.TYPE' | translate"
+                        dataField="Type"
+                        [formItem]="{ visible: false }"
+                    >
+                        <dxi-validation-rule
+                            type="required"
+                        ></dxi-validation-rule>
+                    </dxi-column> -->
+          <dxi-column [caption]="'PRODUCT.THUMB_URL' | translate" dataField="ThumbUrl">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+          </dxi-column>
+          <dxi-column [caption]="'PRODUCT.PRODUCT_TITLE' | translate" dataField="Title">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+          </dxi-column>
+          <dxi-column [caption]="'PRODUCT.DESCRIPTION' | translate" dataField="Description">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+          </dxi-column>
+          <!-- <dxi-column [caption]="'PRODUCT.CAPTION' | translate" dataField="Caption">
                         <dxi-validation-rule type="required"></dxi-validation-rule>
                     </dxi-column> -->
-                    <dxi-column [caption]="'PRODUCT.PRODUCT_CODE' | translate" dataField="ProductCode">
-                        <dxi-validation-rule type="required"></dxi-validation-rule>
-                    </dxi-column>
-                    <dxi-column [caption]="'PRODUCT.UNIT_PRICE' | translate" dataField="UnitPrice">
-                        <dxi-validation-rule type="required"></dxi-validation-rule>
-                    </dxi-column>
-                    <dxi-column [caption]="'PRODUCT.CATEGORY_KEY' | translate" dataField="categoryId">
-                        <dxi-validation-rule type="required"></dxi-validation-rule>
-                        <dxo-lookup [dataSource]="categoryList" displayExpr="Name" valueExpr="Id">
-                        </dxo-lookup>
-                    </dxi-column>
-                    <dxo-editing mode="popup" [allowUpdating]="AllowUpdate" [allowDeleting]="AllowDelete"
-                        [allowAdding]="AllowAdd">
-                        <dxo-popup title="" [width]="'auto'" [height]="'auto'">
-                        </dxo-popup>
-                    </dxo-editing>
-                    <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
-                </dx-data-grid>
+          <dxi-column [caption]="'PRODUCT.PRODUCT_CODE' | translate" dataField="ProductCode">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+          </dxi-column>
+          <dxi-column [caption]="'PRODUCT.UNIT_PRICE' | translate" dataField="UnitPrice" format="currency" dataType="number">
+            <dxo-format type="currency" precision="2"></dxo-format>
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+          </dxi-column>
+          <dxi-column [caption]="'PRODUCT.CATEGORY_KEY' | translate" dataField="categoryId">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+            <dxo-lookup [dataSource]="categoryList" displayExpr="Name" valueExpr="Id"> </dxo-lookup>
+          </dxi-column>
+          <dxo-editing mode="popup" [allowUpdating]="AllowUpdate" [allowDeleting]="AllowDelete" [allowAdding]="AllowAdd">
+            <dxo-popup title="" [width]="'auto'" [height]="'auto'"> </dxo-popup>
+          </dxo-editing>
+          <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
 
-            </div>
-        </div>
+          <dxo-toolbar>
+            <dxi-item location="before">
+              <dx-button stylingMode="outlined" [text]="'PRODUCT.GETIR_IMPORT_UPDATE_BTN' | translate" type="normal" (onClick)="importUpdateGetirProducts($event)"> </dx-button>
+            </dxi-item>
+            <dxi-item name="addRowButton" location="after"></dxi-item>
+          </dxo-toolbar>
+        </dx-data-grid>
+      </div>
     </div>
+  </div>
 </div>
 
-
 <dx-tooltip [target]="toolTipTarget" [(visible)]="ToolTipVisibility" [closeOnOutsideClick]="false">
-    <div *dxTemplate="let data = data of 'content'">
-        {{ToolTipContent}}
-    </div>
+  <div *dxTemplate="let data = data; of: 'content'">
+    {{ ToolTipContent }}
+  </div>
 </dx-tooltip>

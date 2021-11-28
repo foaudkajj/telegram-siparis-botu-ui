@@ -5,15 +5,13 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { GetService } from 'app/project/services/get.service';
-import { DxTooltipModule } from 'devextreme-angular';
 
 
 @NgModule({
   declarations: [ProductsComponent],
   imports: [
     FuseSharedModule,
-    ProductsRoutingModule,
-    DxTooltipModule
+    ProductsRoutingModule
   ],
   providers: [GetService]
 })

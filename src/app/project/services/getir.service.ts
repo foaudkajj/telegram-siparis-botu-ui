@@ -52,13 +52,18 @@ export class GetirService extends BaseService {
         return result$;
     }
 
-    ActivateInActiveOptions(optionProductId: string, status: boolean): Observable<UIResponse<object>> {
-        let result$ = this.post<UIResponse<object>>(`Getir/ActivateInActiveOptions`, { optionProductId: optionProductId, status: status });
+    ActivateInActiveOptionProducts(optionProductId: string, status: boolean): Observable<UIResponse<object>> {
+        let result$ = this.post<UIResponse<object>>(`Getir/ActivateInActiveOptionProducts`, { optionProductId: optionProductId, status: status });
         return result$;
     }
 
     ActivateInActiveProductsAsOptions(productId: string, status: boolean): Observable<UIResponse<object>> {
         let result$ = this.post<UIResponse<object>>(`Getir/ActivateInActiveProductsAsOptions`, { productId: productId, status: status });
+        return result$;
+    }
+
+    UpdateOptionStatusInSpecificProductAndCategory(productId: string, optionCategoryId: number, optionId: number, status: boolean): Observable<UIResponse<object>> {
+        let result$ = this.post<UIResponse<object>>(`Getir/UpdateOptionStatusInSpecificProductAndCategory`, { productId: productId, optionCategoryId, optionId, status: status });
         return result$;
     }
 }

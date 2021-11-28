@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
 
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
-import { FuseDirectivesModule } from '@fuse/directives/directives';
-import { FusePipesModule } from '@fuse/pipes/pipes.module';
-import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
-import { TranslateModule } from '@ngx-translate/core';
+import { FuseDirectivesModule } from "@fuse/directives/directives";
+import { FusePipesModule } from "@fuse/pipes/pipes.module";
+import { TranslateModule } from "@ngx-translate/core";
+import { DevExtremeModule } from "devextreme-angular";
 
 @NgModule({
     imports: [
@@ -19,8 +19,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
         FuseDirectivesModule,
         FusePipesModule,
-        DxDataGridModule,
-        TranslateModule
+        DevExtremeModule,
+        TranslateModule,
     ],
     exports: [
         CommonModule,
@@ -31,9 +31,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
         FuseDirectivesModule,
         FusePipesModule,
-        DxDataGridModule,
-        TranslateModule
-    ]
+        DevExtremeModule,
+        TranslateModule,
+    ],
 })
-export class FuseSharedModule {
-}
+export class FuseSharedModule {}

@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseService } from './base.service';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import CustomStore from 'devextreme/data/custom_store';
 import { createStore } from 'devextreme-aspnet-data-nojquery';
 import { environment } from 'environments/environment';

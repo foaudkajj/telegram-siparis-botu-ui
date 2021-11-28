@@ -5,8 +5,7 @@ import { RoleManagementComponent } from './role-management.component';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { DxTreeListModule } from 'devextreme-angular/ui/tree-list';
 import { MatButtonModule } from '@angular/material/button';
-import { GetService } from 'app/project/services/get.service';
-import { RoleService } from 'app/project/services/Role.Service';
+import { RoleService, GetService } from 'app/project/services';
 
 
 @NgModule({
