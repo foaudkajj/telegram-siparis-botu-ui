@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DxStoreOptions } from 'app/project/Models/DxStoreOptions';
+import { DxStoreOptions } from 'app/project/models/dx-store-options';
 import { DxStoreService } from 'app/project/services/dx-store.service';
 import { PermessionsService } from 'app/project/services/permessions.service';
 import { DxDataGridComponent } from 'devextreme-angular';
@@ -35,7 +35,7 @@ export class CategoriesComponent implements OnInit {
 
   filTable() {
     let storeOption: DxStoreOptions = {
-      loadUrl: "Category/Get", insertUrl: "Category/Insert", updateUrl: "Category/Update", updateMethod: "POST", deleteUrl: "Category/Delete", deleteMethod: "POST", Key: "Id",
+      loadUrl: "Category/Get", insertUrl: "Category/Insert", updateUrl: "Category/Update", updateMethod: "POST", deleteUrl: "Category/Delete", deleteMethod: "POST", Key: "id",
       onInserted: () => this.CategoriesGrid.instance.refresh(),
       onRemoved: () => this.CategoriesGrid.instance.refresh(),
       onUpdated: () => this.CategoriesGrid.instance.refresh()

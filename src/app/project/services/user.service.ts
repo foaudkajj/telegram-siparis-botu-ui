@@ -3,10 +3,10 @@ import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { LoginRequest } from '../Models/LoginRequest';
-import { LoginResponse } from '../Models/LoginResponse';
+import { LoginRequest } from '../models/login-request';
+import { LoginResponse } from '../models/login-response';
 import { map, tap } from 'rxjs/operators';
-import { UIResponse } from '../Models/UIResponse';
+import { UIResponse } from '../models/ui-response';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { TranslateService } from '@ngx-translate/core';
 

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Category} from 'app/project/models/Category';
-import {DxStoreOptions} from 'app/project/Models/DxStoreOptions';
+import {Category} from 'app/project/models/category';
+import {DxStoreOptions} from 'app/project/models/dx-store-options';
 import {
   DxStoreService,
   PermessionsService,
@@ -65,7 +65,7 @@ export class ProductsComponent implements OnInit {
       updateMethod: 'POST',
       deleteUrl: 'Products/Delete',
       deleteMethod: 'POST',
-      Key: 'Id',
+      Key: 'id',
       onInserted: () => this.gridInstance.instance.refresh(),
       onRemoved: () => this.gridInstance.instance.refresh(),
       onUpdated: () => this.gridInstance.instance.refresh(),
@@ -76,7 +76,7 @@ export class ProductsComponent implements OnInit {
   }
 
   gridEditorPreparing(e) {
-    if (e.dataField === 'Type' && e.parentType === 'dataRow') {
+    if (e.dataField === 'type' && e.parentType === 'dataRow') {
       e.editorOptions.disabled = true;
       e.editorOptions.value = 'article';
       this.toolTipTarget = '#productType';
@@ -89,7 +89,7 @@ export class ProductsComponent implements OnInit {
   }
 
   onInitNewRow(e) {
-    e.data.Type = 'article';
+    e.data.type = 'article';
   }
 
   toggleDefault() {

@@ -9,7 +9,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { navigation } from 'app/navigation/navigation';
 import { Router } from '@angular/router';
-import { LoginResponse } from 'app/project/Models/LoginResponse';
+import { LoginResponse } from 'app/project/models/login-response';
 
 @Component({
     selector: 'toolbar',

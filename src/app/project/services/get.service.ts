@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
-import { RoleIdAndPermessions } from '../models/RoleIdAndPermessions';
 
 @Injectable({
     providedIn: 'root'

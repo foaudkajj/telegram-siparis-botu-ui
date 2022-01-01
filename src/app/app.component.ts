@@ -17,7 +17,7 @@ import { locale as TurkishTranslations } from 'app/i18n/tr';
 import { locale as EnglishTranslations } from 'app/i18n/en';
 import { LoadPanelService } from './project/services/loadpnale.service';
 import { FuseNavigation } from '@fuse/types';
-import { LoginResponse } from './project/Models/LoginResponse';
+import { LoginResponse } from './project/models/login-response';
 import { locale, loadMessages } from "devextreme/localization";
 import trMessages from "devextreme/localization/messages/tr.json";
 import config from 'devextreme/core/config';

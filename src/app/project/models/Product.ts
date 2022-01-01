@@ -1,10 +1,10 @@
 export interface Product {
-    Id: number;
-    Type: string;
-    ThumbUrl: string;
-    Title: string;
-    Description: string;
-    Caption: string;
-    ProductCode: string;
-    UnitPrice?: number;
+    id: number;
+    type: string;
+    thumbUrl: string;
+    title: string;
+    description: string;
+    caption: string;
+    productCode: string;
+    unitPrice?: number;
 }

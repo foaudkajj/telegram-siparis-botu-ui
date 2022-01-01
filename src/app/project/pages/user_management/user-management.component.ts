@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { DxStoreOptions } from 'app/project/Models/DxStoreOptions';
-import { Role } from 'app/project/models/Role';
+import { DxStoreOptions } from 'app/project/models/dx-store-options';
+import { Role } from 'app/project/models/role';
 import { DxStoreService } from 'app/project/services/dx-store.service';
 import { GetService } from 'app/project/services/get.service';
 import { PermessionsService } from 'app/project/services/permessions.service';

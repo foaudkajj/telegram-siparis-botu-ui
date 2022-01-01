@@ -34,7 +34,7 @@
           (onEditorPreparing)="gridEditorPreparing($event)"
           (onInitNewRow)="onInitNewRow($event)"
         >
-          <dxi-column [caption]="'Id'" dataField="Id" [visible]="false" [formItem]="{visible: false}" dataType="number"> </dxi-column>
+          <dxi-column [caption]="'Id'" dataField="id" [visible]="false" [formItem]="{visible: false}" dataType="number"> </dxi-column>
           <!-- <dxi-column
                         [caption]="'PRODUCT.TYPE' | translate"
                         dataField="Type"
@@ -44,22 +44,22 @@
                             type="required"
                         ></dxi-validation-rule>
                     </dxi-column> -->
-          <dxi-column [caption]="'PRODUCT.THUMB_URL' | translate" dataField="ThumbUrl">
+          <dxi-column [caption]="'PRODUCT.THUMB_URL' | translate" dataField="thumbUrl">
             <dxi-validation-rule type="required"></dxi-validation-rule>
           </dxi-column>
-          <dxi-column [caption]="'PRODUCT.PRODUCT_TITLE' | translate" dataField="Title">
+          <dxi-column [caption]="'PRODUCT.PRODUCT_TITLE' | translate" dataField="title">
             <dxi-validation-rule type="required"></dxi-validation-rule>
           </dxi-column>
-          <dxi-column [caption]="'PRODUCT.DESCRIPTION' | translate" dataField="Description">
+          <dxi-column [caption]="'PRODUCT.DESCRIPTION' | translate" dataField="description">
             <dxi-validation-rule type="required"></dxi-validation-rule>
           </dxi-column>
           <!-- <dxi-column [caption]="'PRODUCT.CAPTION' | translate" dataField="Caption">
                         <dxi-validation-rule type="required"></dxi-validation-rule>
                     </dxi-column> -->
-          <dxi-column [caption]="'PRODUCT.PRODUCT_CODE' | translate" dataField="ProductCode">
+          <dxi-column [caption]="'PRODUCT.PRODUCT_CODE' | translate" dataField="productCode">
             <dxi-validation-rule type="required"></dxi-validation-rule>
           </dxi-column>
-          <dxi-column [caption]="'PRODUCT.UNIT_PRICE' | translate" dataField="UnitPrice" format="currency" dataType="number">
+          <dxi-column [caption]="'PRODUCT.UNIT_PRICE' | translate" dataField="unitPrice" format="currency" dataType="number">
             <dxo-format type="currency" precision="2"></dxo-format>
             <dxi-validation-rule type="required"></dxi-validation-rule>
           </dxi-column>

@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from 'app/project/services/user.service';
 import { SwalService } from 'app/project/services/swal.service';
-import { LoginRequest } from 'app/project/Models/LoginRequest';
-import { UIResponse } from 'app/project/Models/UIResponse';
-import { LoginResponse } from 'app/project/Models/LoginResponse';
+import { LoginRequest } from 'app/project/models/login-request';
+import { UIResponse } from 'app/project/models/ui-response';
+import { LoginResponse } from 'app/project/models/login-response';
 
 @Component({
     selector: 'login',

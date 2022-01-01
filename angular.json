@@ -30,6 +30,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/devextreme/dist/css/dx.common.css",
               "node_modules/devextreme/dist/css/dx.material.blue.light.css",
               "src/styles.scss"
@@ -145,5 +146,8 @@
       }
     }
   },
-  "defaultProject": "fuse"
+  "defaultProject": "fuse",
+  "cli": {
+    "analytics": "7f39f177-abe7-407e-97cc-84a4028955eb"
+  }
 }

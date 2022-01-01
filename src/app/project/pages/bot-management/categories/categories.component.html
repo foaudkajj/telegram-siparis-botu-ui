@@ -28,14 +28,14 @@
 
                 <dx-data-grid #Grid id="gridContainer" [allowColumnResizing]="true" [columnAutoWidth]="true"
                     [remoteOperations]="true" [dataSource]="store" [showBorders]="true">
-                    <dxi-column [caption]="'Id'" dataField="Id" [visible]="false" [formItem]="{visible: false}"
+                    <dxi-column [caption]="'id'" dataField="Id" [visible]="false" [formItem]="{visible: false}"
                         dataType="number">
                     </dxi-column>
 
-                    <dxi-column [caption]="'CATEGORY.NAME' | translate" dataField="Name">
+                    <dxi-column [caption]="'CATEGORY.NAME' | translate" dataField="name">
                         <dxi-validation-rule type="required"></dxi-validation-rule>
                     </dxi-column>
-                    <dxi-column [caption]="'CATEGORY.CATEGORY_KEY' | translate" dataField="CategoryKey">
+                    <dxi-column [caption]="'CATEGORY.CATEGORY_KEY' | translate" dataField="categoryKey">
                         <dxi-validation-rule type="required"></dxi-validation-rule>
                     </dxi-column>
                     <dxo-editing mode="popup" [allowUpdating]="AllowUpdate" [allowDeleting]="AllowDelete"

@@ -3,9 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
-import { RoleIdAndPermessions } from '../models/RoleIdAndPermessions';
-import { Endpoints } from '../pages/entegrations-management/Getir/Getir-Enums/Endpoints';
-import { UIResponse } from '../Models/UIResponse';
+import { UIResponse } from '../models/ui-response';
 
 @Injectable()
 export class GetirService extends BaseService {
