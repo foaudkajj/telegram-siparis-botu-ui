@@ -7,3 +7,4 @@ export * from "./role.service";
 export * from "./swal.service";
 export * from "./user.service";
 export * from "./dx-store.service";
+export * from './order.service'

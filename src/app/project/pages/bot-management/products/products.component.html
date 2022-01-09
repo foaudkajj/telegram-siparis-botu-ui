@@ -65,7 +65,7 @@
           </dxi-column>
           <dxi-column [caption]="'PRODUCT.CATEGORY_KEY' | translate" dataField="categoryId">
             <dxi-validation-rule type="required"></dxi-validation-rule>
-            <dxo-lookup [dataSource]="categoryList" displayExpr="Name" valueExpr="Id"> </dxo-lookup>
+            <dxo-lookup [dataSource]="categoryList" displayExpr="name" valueExpr="id"> </dxo-lookup>
           </dxi-column>
           <dxo-editing mode="popup" [allowUpdating]="AllowUpdate" [allowDeleting]="AllowDelete" [allowAdding]="AllowAdd">
             <dxo-popup title="" [width]="'auto'" [height]="'auto'"> </dxo-popup>

@@ -30,8 +30,8 @@
                     <dx-data-grid #MenusOptionsGrid id="gridContainer" [allowColumnResizing]="true"
                         [columnAutoWidth]="true" [remoteOperations]="true" [dataSource]="restaurantMenuAndOptionsDS"
                         [showBorders]="true" (onRowPrepared)='menusOptionsGridOnRowPrepared($event)'
-                        [masterDetail]="{ enabled: true, template: 'products',autoExpandAll:true }">
-                        <!-- <!-- <dxi-column dataField="key" caption="Store" [width]="150" [groupIndex]="0"></dxi-column> -->
+                        [masterDetail]="{ enabled: true, template: 'products',autoExpandAll:false }">
+                        <!-- <dxi-column dataField="key" caption="Store" [width]="150" [groupIndex]="0"></dxi-column> -->
                         <dxi-column dataField="name.tr" [caption]="'GETIR.CATEGORY_NAME' | translate"></dxi-column>
                         <dxi-column dataField="status" [caption]="'GETIR.CATEGORY_STATUS'| translate"
                             [formItem]="{visible: false}" cellTemplate="activateDeactivateCategoryCellTemplate">
@@ -52,7 +52,7 @@
                         <div *dxTemplate="let categoryData of 'products'">
                             <dx-data-grid #productsGrid id="gridContainer" [dataSource]="categoryData.data.products"
                                 [showBorders]="true" (onRowPrepared)='productsGridOnRowPrepared($event)'
-                                [masterDetail]="{ enabled: true, template: 'options',autoExpandAll:true }">
+                                [masterDetail]="{ enabled: true, template: 'options',autoExpandAll:false }">
                                 <dxi-column dataField="name.tr" [caption]="'GETIR.PRODUCT_NAME' | translate">
                                 </dxi-column>
                                 <dxi-column dataField="description.tr" [caption]="'GETIR.DESCRIPTION' | translate">

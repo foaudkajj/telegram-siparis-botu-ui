@@ -116,6 +116,7 @@ export const locale = {
       IS_ECO_FRIENDLY: 'Servis gönderme (çatal,bıçak ..)',
       IS_SCHEDULED: 'İleri tarihli sipariş',
       PAYMENT_METHOD: 'Ödeme yöntemi',
+      PRODUCT_OPTIONS: 'Opsiyonlar',
       CUSTOMER: {
         ID: 'Telegram Kullanıcı Id',
         USER_NAME: 'Kullanıcı Adı',

@@ -114,7 +114,8 @@ export const locale = {
         STATUS: 'Order status',
         IS_ECO_FRIENDLY: 'isEcoFriendly',
         IS_SCHEDULED: 'Is Scheduled',
-        PAYMENT_METHOD:'Payment Method',
+        PAYMENT_METHOD: 'Payment Method',
+        PRODUCT_OPTIONS: 'Options',
         CUSTOMER: {
           ID: 'Kullanıcı Id',
           USER_NAME: 'Kullanıcı Adı',

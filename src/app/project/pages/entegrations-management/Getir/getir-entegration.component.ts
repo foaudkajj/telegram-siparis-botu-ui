@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { UIResponse } from 'app/project/Models/UIResponse';
+import { UIResponse } from 'app/project/models/ui-response';
 import { DxStoreService } from 'app/project/services/dx-store.service';
 import { GetirService } from 'app/project/services/getir.service';
 import { SwalService } from 'app/project/services/swal.service';
@@ -165,22 +165,22 @@ export class GetirEntegrationComponent implements OnInit {
 
   menusOptionsGridOnRowPrepared(e) {
     if (e.rowType == 'data') {
-      e.rowElement.style.backgroundColor = '#6b9b37';
-      e.rowElement.className = e.rowElement.className.replace("dx-row-alt", "");
+      // e.rowElement.style.backgroundColor = '#6b9b37';
+      // e.rowElement.className = e.rowElement.className.replace("dx-row-alt", "");
     }
   }
 
   productsGridOnRowPrepared(e) {
     if (e.rowType == 'data') {
-      e.rowElement.style.backgroundColor = '#c68400';
-      e.rowElement.className = e.rowElement.className.replace("dx-row-alt", "");
+      // e.rowElement.style.backgroundColor = '#c68400';
+      // e.rowElement.className = e.rowElement.className.replace("dx-row-alt", "");
     }
   }
 
   subOptionsOnRowPrepared(e) {
     if (e.rowType == 'data') {
-      e.rowElement.style.backgroundColor = '#ffe54c';
-      e.rowElement.className = e.rowElement.className.replace("dx-row-alt", "");
+      // e.rowElement.style.backgroundColor = '#ffe54c';
+      // e.rowElement.className = e.rowElement.className.replace("dx-row-alt", "");
     }
   }
 
