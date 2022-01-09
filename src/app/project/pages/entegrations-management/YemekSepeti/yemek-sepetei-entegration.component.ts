@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-yemek-sepetei-entegration',
   templateUrl: './yemek-sepetei-entegration.component.html',
-  styleUrls: ['./yemek-sepetei-entegration.component.scss']
+  styleUrls: ['./yemek-sepetei-entegration.component.scss'],
 })
 export class YemekSepeteiEntegrationComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

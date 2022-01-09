@@ -1,29 +1,33 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { DxStoreOptions } from 'app/project/models/dx-store-options';
-import { Role } from 'app/project/models/role';
-import { DxStoreService } from 'app/project/services/dx-store.service';
-import { GetService } from 'app/project/services/get.service';
-import { PermessionsService } from 'app/project/services/permessions.service';
-import { DxDataGridComponent } from 'devextreme-angular';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {DxStoreOptions} from 'app/project/models/dx-store-options';
+import {Role} from 'app/project/models/role';
+import {DxStoreService} from 'app/project/services/dx-store.service';
+import {GetService} from 'app/project/services/get.service';
+import {PermessionsService} from 'app/project/services/permessions.service';
+import {DxDataGridComponent} from 'devextreme-angular';
 import CustomStore from 'devextreme/data/custom_store';
 
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
-  styleUrls: ['./user-management.component.scss']
+  styleUrls: ['./user-management.component.scss'],
 })
 export class UserManagementComponent implements OnInit {
-
   rolList: Role[];
   UsersGridDataSource: any;
-  @ViewChild('UsersGrid') UsersGrid: DxDataGridComponent
+  @ViewChild('UsersGrid') UsersGrid: DxDataGridComponent;
   store: CustomStore;
-  UserStatus = [{ Id: 1, Name: 'Aktif' }, { Id: 0, Name: 'Pasif' }];
-  constructor(public translate: TranslateService,
+  UserStatus = [
+    {Id: 1, Name: 'Aktif'},
+    {Id: 0, Name: 'Pasif'},
+  ];
+  constructor(
+    public translate: TranslateService,
     private getService: GetService,
     private dxStore: DxStoreService,
-    private permessionService: PermessionsService) { }
+    private permessionService: PermessionsService,
+  ) {}
 
   ngOnInit(): void {
     this.getRoles();
@@ -36,23 +40,30 @@ export class UserManagementComponent implements OnInit {
   AllowUpdate = false;
   private async InitlizePermessions() {
     const UIPermessions = await this.permessionService.permesions$.toPromise();
-    this.AllowAdd = UIPermessions.includes("ADD_USER");
-    this.AllowDelete = UIPermessions.includes("DELETE_USER");
-    this.AllowUpdate = UIPermessions.includes("UPDATE_USER");
+    this.AllowAdd = UIPermessions.includes('ADD_USER');
+    this.AllowDelete = UIPermessions.includes('DELETE_USER');
+    this.AllowUpdate = UIPermessions.includes('UPDATE_USER');
   }
 
   getRoles() {
-    this.getService.GetRoles().toPromise().then(res => this.rolList = (res.data as Role[]));
+    this.getService
+      .GetRoles()
+      .toPromise()
+      .then(res => (this.rolList = res.data as Role[]));
   }
   filTable() {
     let storeOption: DxStoreOptions = {
-      loadUrl: "User/Get", insertUrl: "User/Insert", updateUrl: "User/Update", updateMethod: "POST", deleteUrl: "User/Delete", deleteMethod: "POST", Key: "Id",
+      loadUrl: 'User/Get',
+      insertUrl: 'User/Insert',
+      updateUrl: 'User/Update',
+      updateMethod: 'POST',
+      deleteUrl: 'User/Delete',
+      deleteMethod: 'POST',
+      Key: 'Id',
       onInserted: () => this.UsersGrid.instance.refresh(),
       onRemoved: () => this.UsersGrid.instance.refresh(),
-      onUpdated: () => this.UsersGrid.instance.refresh()
+      onUpdated: () => this.UsersGrid.instance.refresh(),
     };
     this.store = this.dxStore.GetStore(storeOption);
-
   }
-
 }

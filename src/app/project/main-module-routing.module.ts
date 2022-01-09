@@ -1,16 +1,40 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
 const routes: Routes = [
-  { path: "", redirectTo: "stock", pathMatch: "full" },
-  { path: 'rolemanagement', loadChildren: () => import('./pages/role_management/role-management.module').then(m => m.RoleManagementModule) },
-  { path: 'usermanagement', loadChildren: () => import('./pages/user_management/user-management.module').then(m => m.UserManagementModule) },
-  { path: 'bot', loadChildren: () => import('./pages/bot-management/bot-management.module').then(m => m.BotManagementModule) },
-  { path: 'entegrations', loadChildren: () => import('./pages/entegrations-management/entegrations-management.module').then(m => m.EntegrationsManagementModule) }
+  {path: '', redirectTo: 'stock', pathMatch: 'full'},
+  {
+    path: 'rolemanagement',
+    loadChildren: () =>
+      import('./pages/role_management/role-management.module').then(
+        m => m.RoleManagementModule,
+      ),
+  },
+  {
+    path: 'usermanagement',
+    loadChildren: () =>
+      import('./pages/user_management/user-management.module').then(
+        m => m.UserManagementModule,
+      ),
+  },
+  {
+    path: 'bot',
+    loadChildren: () =>
+      import('./pages/bot-management/bot-management.module').then(
+        m => m.BotManagementModule,
+      ),
+  },
+  {
+    path: 'entegrations',
+    loadChildren: () =>
+      import(
+        './pages/entegrations-management/entegrations-management.module'
+      ).then(m => m.EntegrationsManagementModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class MainModuleRoutingModule { }
+export class MainModuleRoutingModule {}

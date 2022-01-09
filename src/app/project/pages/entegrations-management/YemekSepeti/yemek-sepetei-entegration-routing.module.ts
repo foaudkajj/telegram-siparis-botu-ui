@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { YemekSepeteiEntegrationComponent } from './yemek-sepetei-entegration.component';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {YemekSepeteiEntegrationComponent} from './yemek-sepetei-entegration.component';
 
 const routes: Routes = [
-  { path: '', component: YemekSepeteiEntegrationComponent },
+  {path: '', component: YemekSepeteiEntegrationComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class YemekSepeteiEntegrationRoutingModule { }
+export class YemekSepeteiEntegrationRoutingModule {}

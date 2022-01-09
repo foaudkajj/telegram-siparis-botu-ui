@@ -1,17 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { UIResponse } from 'app/project/models/ui-response';
-import { DxStoreService } from 'app/project/services/dx-store.service';
-import { GetirService } from 'app/project/services/getir.service';
-import { SwalService } from 'app/project/services/swal.service';
-import { DxDataGridComponent, DxFormComponent, DxListComponent } from 'devextreme-angular';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {UIResponse} from 'app/project/models/ui-response';
+import {DxStoreService} from 'app/project/services/dx-store.service';
+import {GetirService} from 'app/project/services/getir.service';
+import {SwalService} from 'app/project/services/swal.service';
+import {
+  DxDataGridComponent,
+  DxFormComponent,
+  DxListComponent,
+} from 'devextreme-angular';
 import Store from 'devextreme/data/abstract_store';
 import DataSource from 'devextreme/data/data_source';
 
 @Component({
   selector: 'app-getir-entegration',
   templateUrl: './getir-entegration.component.html',
-  styleUrls: ['./getir-entegration.component.scss']
+  styleUrls: ['./getir-entegration.component.scss'],
 })
 export class GetirEntegrationComponent implements OnInit {
   restaurantPaymentMethodsDS: DataSource;
@@ -19,66 +23,66 @@ export class GetirEntegrationComponent implements OnInit {
   restaurantMenuAndOptionsDS: DataSource;
   restaurantOptionsDS: DataSource;
   selectedItemsIds = [];
-  CourierRestaurantStatus = { Courier: false, Restaurant: false };
+  CourierRestaurantStatus = {Courier: false, Restaurant: false};
   formSubmitButtonOptions = {};
   @ViewChild('paymentMethodsList') PaymentMethodsList: DxListComponent;
   @ViewChild('Grid') paymentMethodsGridInstance: DxDataGridComponent;
   @ViewChild('MenusOptionsGrid') menusOptionsGrid: DxDataGridComponent;
 
-  @ViewChild("formInstance") formInstance: DxFormComponent;
+  @ViewChild('formInstance') formInstance: DxFormComponent;
 
-  constructor(private dxStore: DxStoreService, private getirService: GetirService, private readonly swal: SwalService, private readonly translate: TranslateService) {
+  constructor(
+    private dxStore: DxStoreService,
+    private getirService: GetirService,
+    private readonly swal: SwalService,
+    private readonly translate: TranslateService,
+  ) {
     this.restaurantMenuAndOptionsDS = new DataSource({
       store: this.dxStore.GetStore({
-        loadUrl: "Getir/GetRestaurantMenusAndOptions", Key: "id"
-      })
+        loadUrl: 'Getir/GetRestaurantMenusAndOptions',
+        Key: 'id',
+      }),
     });
-
   }
 
   panelItemChanged(e) {
     if (e.name == 'selectedItem') {
       if (e.value.dataField == 'Products') {
-
         this.restaurantMenuAndOptionsDS = new DataSource({
           store: this.dxStore.GetStore({
-            loadUrl: "Getir/GetRestaurantMenusAndOptions", Key: "id"
-          })
+            loadUrl: 'Getir/GetRestaurantMenusAndOptions',
+            Key: 'id',
+          }),
         });
-
-
-
       } else if (e.value.dataField == 'PaymentMethods') {
-
-
         this.restaurantPaymentMethodsDS = new DataSource({
           store: this.dxStore.GetStore({
-            loadUrl: "Getir/GetRestaurantPaymentMethods", Key: "id", deleteUrl: 'Getir/DeleteRestaurantPaymentMethods', insertUrl: 'Getir/AddPaymentMethod'
+            loadUrl: 'Getir/GetRestaurantPaymentMethods',
+            Key: 'id',
+            deleteUrl: 'Getir/DeleteRestaurantPaymentMethods',
+            insertUrl: 'Getir/AddPaymentMethod',
           }),
-          onInserted: () => this.paymentMethodsGridInstance.instance.refresh()
+          onInserted: () => this.paymentMethodsGridInstance.instance.refresh(),
         });
 
         this.allPaymentMethodsStore = this.dxStore.GetStore({
-          loadUrl: "Getir/GetAllPaymentMethods", Key: "id"
+          loadUrl: 'Getir/GetAllPaymentMethods',
+          Key: 'id',
         });
-
-
-      }
-      else if (e.value.dataField == 'Options') {
+      } else if (e.value.dataField == 'Options') {
         this.restaurantOptionsDS = new DataSource({
           store: this.dxStore.GetStore({
-            loadUrl: "Getir/GetOptionProdcuts", Key: "id"
-          })
+            loadUrl: 'Getir/GetOptionProdcuts',
+            Key: 'id',
+          }),
         });
-
-      }
-      else if (e.value.dataField == 'CourierAvailibility') {
+      } else if (e.value.dataField == 'CourierAvailibility') {
         this.formSubmitButtonOptions = {
           text: this.translate.instant('COMMON.SAVE'),
-          type: "success",
+          type: 'success',
           useSubmitBehavior: true,
-          onClick: () => this.UpdateRestaurantAndCourierInfo()
-        }
+          onClick: () => this.UpdateRestaurantAndCourierInfo(),
+        };
         this.GetRestaurantDetails();
         // await this.getirService.ActivateDeactivateRestaurantPaymentMethods().toPromise()
         // await this.getirService.ActivateDeactivateRestaurantPaymentMethods().toPromise()
@@ -86,10 +90,11 @@ export class GetirEntegrationComponent implements OnInit {
     }
   }
 
-
   async ActivateDeactivate(e, data) {
-    const response = await this.getirService.ActivateDeactivateRestaurantPaymentMethods(data.id, e.value).toPromise()
-    this.paymentMethodsGridInstance.instance.refresh()
+    const response = await this.getirService
+      .ActivateDeactivateRestaurantPaymentMethods(data.id, e.value)
+      .toPromise();
+    this.paymentMethodsGridInstance.instance.refresh();
     if (!response.IsError) {
       this.swal.showSuccessMessage();
     } else {
@@ -98,8 +103,10 @@ export class GetirEntegrationComponent implements OnInit {
   }
 
   async ActivateDeactivateProductStatus(e, data) {
-    const response = await this.getirService.ActivateDeactivateProductStatus(data.id, e.value ? 100 : 200).toPromise()
-    this.menusOptionsGrid.instance.refresh()
+    const response = await this.getirService
+      .ActivateDeactivateProductStatus(data.id, e.value ? 100 : 200)
+      .toPromise();
+    this.menusOptionsGrid.instance.refresh();
     if (!response.IsError) {
       this.swal.showSuccessMessage();
     } else {
@@ -116,9 +123,11 @@ export class GetirEntegrationComponent implements OnInit {
   //     this.swal.showErrorMessage();
   //   }
   // }
-  async ActivateDeactivateOptionProduct( data,status) {
-    const response = await this.getirService.ActivateDeactivateOptionProduct(data.id, status).toPromise()
-    this.paymentMethodsGridInstance.instance.refresh()
+  async ActivateDeactivateOptionProduct(data, status) {
+    const response = await this.getirService
+      .ActivateDeactivateOptionProduct(data.id, status)
+      .toPromise();
+    this.paymentMethodsGridInstance.instance.refresh();
     if (!response.IsError) {
       this.swal.showSuccessMessage();
     } else {
@@ -126,9 +135,9 @@ export class GetirEntegrationComponent implements OnInit {
     }
   }
   async GetRestaurantDetails() {
-    const response = await this.getirService.GetRestaurantDetails().toPromise()
+    const response = await this.getirService.GetRestaurantDetails().toPromise();
     if (!response.IsError) {
-      this.formInstance.instance.option("formData", response.Result);
+      this.formInstance.instance.option('formData', response.Result);
     } else {
       this.swal.showErrorMessage();
     }
@@ -140,9 +149,15 @@ export class GetirEntegrationComponent implements OnInit {
   }
 
   async UpdateRestaurantAndCourierInfo() {
-    const formData = this.formInstance.instance.option("formData");
-    const { status, averagePreparationTime, isCourierAvailable } = formData;
-    const response = await this.getirService.UpdateRestaurantAndCourierInfo({ status, averagePreparationTime, isCourierAvailable }).toPromise()
+    const formData = this.formInstance.instance.option('formData');
+    const {status, averagePreparationTime, isCourierAvailable} = formData;
+    const response = await this.getirService
+      .UpdateRestaurantAndCourierInfo({
+        status,
+        averagePreparationTime,
+        isCourierAvailable,
+      })
+      .toPromise();
     this.GetRestaurantDetails();
     if (!response.IsError) {
       this.swal.showSuccessMessage();
@@ -151,11 +166,22 @@ export class GetirEntegrationComponent implements OnInit {
     }
   }
 
+  async UpdateOptionStatusInSpecificProductAndCategory(
+    e,
+    option,
+    category,
+    productData,
+  ) {
+    let response: UIResponse<object> = await this.getirService
+      .UpdateOptionStatusInSpecificProductAndCategory(
+        productData.data.id,
+        category.id,
+        option.id,
+        e.value,
+      )
+      .toPromise();
 
-  async UpdateOptionStatusInSpecificProductAndCategory(e, option, category, productData) {
-    let response: UIResponse<object> = await this.getirService.UpdateOptionStatusInSpecificProductAndCategory(productData.data.id, category.id, option.id, e.value).toPromise()
-
-    this.menusOptionsGrid.instance.refresh()
+    this.menusOptionsGrid.instance.refresh();
     if (!response.IsError) {
       this.swal.showSuccessMessage();
     } else {
@@ -184,7 +210,6 @@ export class GetirEntegrationComponent implements OnInit {
     }
   }
 
-
   // async paymentMethodOnItemClick(e) {
   //   const isSelected = this.PaymentMethodsList.instance.isItemSelected(e.itemIndex);
   //   const response = await this.getirService.AddOrDeletePaymentMethod(e.itemData.id, isSelected).toPromise();
@@ -201,7 +226,5 @@ export class GetirEntegrationComponent implements OnInit {
   //     return item.name.tr;
   //   }
   // }
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

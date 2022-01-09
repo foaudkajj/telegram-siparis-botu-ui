@@ -1,80 +1,85 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import { FuseConfigService } from '@fuse/services/config.service';
-import { fuseAnimations } from '@fuse/animations';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { UserService } from 'app/project/services/user.service';
-import { SwalService } from 'app/project/services/swal.service';
-import { LoginRequest } from 'app/project/models/login-request';
-import { UIResponse } from 'app/project/models/ui-response';
-import { LoginResponse } from 'app/project/models/login-response';
+import {FuseConfigService} from '@fuse/services/config.service';
+import {fuseAnimations} from '@fuse/animations';
+import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import {UserService} from 'app/project/services/user.service';
+import {SwalService} from 'app/project/services/swal.service';
+import {LoginRequest} from 'app/project/models/login-request';
+import {UIResponse} from 'app/project/models/ui-response';
+import {LoginResponse} from 'app/project/models/login-response';
 
 @Component({
-    selector: 'login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    animations: fuseAnimations
+  selector: 'login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  animations: fuseAnimations,
 })
 export class LoginComponent implements OnInit {
-    loginForm: FormGroup;
+  loginForm: FormGroup;
 
-    /**
-     * Constructor
-     *
-     * @param {FuseConfigService} _fuseConfigService
-     * @param {FormBuilder} _formBuilder
-     */
-    constructor(
-        private _fuseConfigService: FuseConfigService,
-        private _formBuilder: FormBuilder,
-        private router: Router,
-        public translate: TranslateService,
-        private userSerivce: UserService,
-        private swal: SwalService
-    ) {
-        // Configure the layout
-        this._fuseConfigService.config = {
-            layout: {
-                navbar: {
-                    hidden: true
-                },
-                toolbar: {
-                    hidden: true
-                },
-                footer: {
-                    hidden: true
-                },
-                sidepanel: {
-                    hidden: true
-                }
-            }
-        };
+  /**
+   * Constructor
+   *
+   * @param {FuseConfigService} _fuseConfigService
+   * @param {FormBuilder} _formBuilder
+   */
+  constructor(
+    private _fuseConfigService: FuseConfigService,
+    private _formBuilder: FormBuilder,
+    private router: Router,
+    public translate: TranslateService,
+    private userSerivce: UserService,
+    private swal: SwalService,
+  ) {
+    // Configure the layout
+    this._fuseConfigService.config = {
+      layout: {
+        navbar: {
+          hidden: true,
+        },
+        toolbar: {
+          hidden: true,
+        },
+        footer: {
+          hidden: true,
+        },
+        sidepanel: {
+          hidden: true,
+        },
+      },
+    };
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    this.loginForm = this._formBuilder.group({
+      email: ['', [Validators.required]],
+      password: ['', Validators.required],
+    });
+  }
+
+  async LoginButton() {
+    let loginRequest: LoginRequest = {
+      username: this.loginForm.controls.email.value,
+      password: this.loginForm.controls.password.value,
+    };
+    let loginResponse = (await this.userSerivce
+      .Login(loginRequest)
+      .toPromise()) as UIResponse<LoginResponse>;
+    if (loginResponse.Result.IsAuthenticated) {
+      this.router.navigate(['/#']);
+    } else {
+      this.swal.showErrorMessage(loginResponse.MessageKey);
     }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void {
-        this.loginForm = this._formBuilder.group({
-            email: ['', [Validators.required]],
-            password: ['', Validators.required]
-        });
-    }
-
-    async LoginButton() {
-        let loginRequest: LoginRequest = { username: this.loginForm.controls.email.value, password: this.loginForm.controls.password.value }
-        let loginResponse = await this.userSerivce.Login(loginRequest).toPromise() as UIResponse<LoginResponse>;
-        if (loginResponse.Result.IsAuthenticated) {
-            this.router.navigate(['/#'])
-        } else {
-            this.swal.showErrorMessage(loginResponse.MessageKey)
-        }
-    }
+  }
 }

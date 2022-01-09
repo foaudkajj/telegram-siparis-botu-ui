@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
 
-@Injectable({ providedIn: "root" })
+@Injectable({providedIn: 'root'})
 export class LoadPanelService {
-	public loadingChanged = new Subject<boolean>();
+  public loadingChanged = new Subject<boolean>();
 
-	postLoadingChanged(state: boolean) {
-		this.loadingChanged.next(state);
-	}
+  postLoadingChanged(state: boolean) {
+    this.loadingChanged.next(state);
+  }
 }

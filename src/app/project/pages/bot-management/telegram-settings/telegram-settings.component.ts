@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-telegram-settings',
   templateUrl: './telegram-settings.component.html',
-  styleUrls: ['./telegram-settings.component.scss']
+  styleUrls: ['./telegram-settings.component.scss'],
 })
 export class TelegramSettingsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
