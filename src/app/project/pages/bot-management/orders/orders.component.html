@@ -115,22 +115,22 @@
           <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
 
           <div *dxTemplate="let order of 'detail'">
-
             <dx-data-grid [allowColumnResizing]="true" [columnAutoWidth]="true" [dataSource]="order.data.orderItems" [showBorders]="true">
               <dxi-column [caption]="'ORDER.AMOUNT' | translate" dataField="amount"> </dxi-column>
               <dxi-column [caption]="'ORDER.PRODUCT_TITLE' | translate" dataField="product.title"> </dxi-column>
               <dxi-column [caption]="'ORDER.PRODUCT_DESCRIPTION' | translate" dataField="product.description"> </dxi-column>
-              <dxi-column [caption]="'ORDER.PRODUCT_OPTIONS' | translate" dataField="orderOptions" cellTemplate="optionsTemplate"> </dxi-column>
               <dxi-column [caption]="'ORDER.UNIT_PRICE' | translate" dataField="product.unitPrice" format="currency" dataType="number">
                 <dxo-format type="currency" precision="2"></dxo-format>
               </dxi-column>
+              <dxi-column [caption]="'ORDER.PRODUCT_OPTIONS' | translate" dataField="orderOptions" cellTemplate="optionsTemplate"> </dxi-column>
+
               <dxi-column [caption]="'ORDER.NOTE' | translate" dataField="itemNote"> </dxi-column>
               <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
 
               <div *dxTemplate="let cell of 'optionsTemplate'">
                 <ul>
                   <ng-container *ngFor="let orderOption of cell.data.orderOptions">
-                    <li>{{ orderOption?.option?.name }}</li></ng-container
+                    <li>{{ orderOption?.option?.name + ' ' + orderOption?.price + ' ₺' }}</li></ng-container
                   >
                 </ul>
               </div>

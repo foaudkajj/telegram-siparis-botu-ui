@@ -155,6 +155,12 @@ export const locale = {
       SUB_OPTION_NAME: 'Alt Opsiyon İsmi',
       ACTIVE_OPTION_PRODUCT: 'Tüm ürünlerde aç',
       INACTIVE_OPTION_PRODUCT: 'Tüm ürünlerde kapat',
+      ERRORS: {
+        FAST_PREPARE:
+          'En az 1.dk beklemeniz gerekiyor.',
+          FAST_DELIVER: 'En az 1.dk beklemeniz gerekiyor.',
+          GENERAL_ERROR: 'Getir genel hata. Hata Kodu {{errorCode}}'
+      },
     },
     YEMEKSEPETI: {
       TITLE: 'YemekSepeti',

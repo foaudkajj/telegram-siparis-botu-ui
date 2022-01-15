@@ -5,10 +5,10 @@ import swal from 'sweetalert2';
 @Injectable({providedIn: 'root'})
 export class SwalService {
   constructor(private translate: TranslateService) {}
-  showErrorMessage(message?: string) {
+  showErrorMessage(message?: string, translationParameters?: {}) {
     swal.fire(
       this.translate.instant('EXCEPTIONS.ERROR'),
-      message ? this.translate.instant(message) : '',
+      message ? this.translate.instant(message, translationParameters) : '',
       'error',
     );
   }

@@ -128,6 +128,12 @@ export const locale = {
     },
     GETIR: {
       TITLE: 'Getir',
+      ERRORS: {
+        FAST_PREPARE:
+        'En az 1.dk beklemeniz gerekiyor.',
+        FAST_DELIVER: 'En az 1.dk beklemeniz gerekiyor.',
+        GENERAL_ERROR: 'Getir General Error. Code: {{errorCode}}'
+      },
     },
     YEMEKSEPETI: {
       TITLE: 'YemekSepeti',

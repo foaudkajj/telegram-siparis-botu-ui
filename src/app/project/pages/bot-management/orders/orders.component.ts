@@ -62,7 +62,6 @@ export class OrdersComponent implements OnInit {
       onInserted: () => this.gridInstance.instance.refresh(),
       onRemoved: () => this.gridInstance.instance.refresh(),
       onUpdated: (key, values) => {
-        console.log(values);
         if (values.orderStatus === OrderStatus.FutureOrder) {
           this.swalService.showSuccessMessage(
             'Siparis bir saat once tekrar dusecektir.',
@@ -145,11 +144,9 @@ export class OrdersComponent implements OnInit {
       }
     }
 
-    let udpateResult: UIResponse<any> = await this.dataSource
+     await this.dataSource
       .store()
       .update(row.data.id, {orderStatus: newOrderStatus});
-    if (!udpateResult.IsError) {
-    }
   }
 
   async cancelOrder(e, row) {
