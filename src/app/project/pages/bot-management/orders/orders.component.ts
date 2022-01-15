@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {OrderStatus} from 'app/project/enums/OrderStatus';
 import {DeliveryType} from 'app/project/models';
@@ -16,9 +16,10 @@ import DataSource from 'devextreme/data/data_source';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss'],
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, OnDestroy {
   @ViewChild('Grid') gridInstance: DxDataGridComponent;
   store: CustomStore;
+  currentInterval;
   constructor(
     private dxStore: DxStoreService,
     private permessionService: PermessionsService,
@@ -33,9 +34,17 @@ export class OrdersComponent implements OnInit {
       this.paymentMethodsDisplayValue.bind(this);
   }
 
+  ngOnDestroy(): void {
+    clearInterval(this.currentInterval);
+  }
+
   ngOnInit(): void {
     this.filTable();
     this.InitlizePermessions();
+
+    this.currentInterval = setInterval(() => {
+      this.gridInstance.instance.refresh();
+    }, 10000);
   }
 
   AllowAdd = true;
@@ -144,7 +153,7 @@ export class OrdersComponent implements OnInit {
       }
     }
 
-     await this.dataSource
+    await this.dataSource
       .store()
       .update(row.data.id, {orderStatus: newOrderStatus});
   }
