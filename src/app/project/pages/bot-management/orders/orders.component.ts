@@ -20,6 +20,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
   @ViewChild('Grid') gridInstance: DxDataGridComponent;
   store: CustomStore;
   currentInterval;
+  newOrderAudio;
+
   constructor(
     private dxStore: DxStoreService,
     private permessionService: PermessionsService,
@@ -29,9 +31,10 @@ export class OrdersComponent implements OnInit, OnDestroy {
   ) {
     this.orderStatusColumnCustomizeText =
       this.orderStatusColumnCustomizeText.bind(this);
-    this.getirOrderStaus = this.getirOrderStaus.bind(this);
     this.paymentMethodsDisplayValue =
       this.paymentMethodsDisplayValue.bind(this);
+    this.runVoiceWhenNonConfirmedOrdersExist =
+      this.runVoiceWhenNonConfirmedOrdersExist.bind(this);
   }
 
   ngOnDestroy(): void {
@@ -39,12 +42,25 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.newOrderAudio = new Audio('../../../../../assets/new-order.mp3');
+    this.newOrderAudio.load();
     this.filTable();
     this.InitlizePermessions();
 
-    this.currentInterval = setInterval(() => {
-      this.gridInstance.instance.refresh();
+    this.currentInterval = setInterval(async () => {
+      await this.gridInstance.instance.refresh();
+      this.runVoiceWhenNonConfirmedOrdersExist();
     }, 10000);
+  }
+  runVoiceWhenNonConfirmedOrdersExist() {
+    if (
+      this.gridInstance.instance
+        .getDataSource()
+        ?.items()
+        ?.some(s => s.orderStatus === OrderStatus.UserConfirmed)
+    ) {
+      this.newOrderAudio.play();
+    }
   }
 
   AllowAdd = true;
@@ -85,9 +101,9 @@ export class OrdersComponent implements OnInit, OnDestroy {
     });
   }
 
-  directToLocation(data) {
-    if (data.customer.location) {
-      const coordinates = JSON.parse(data.customer.location);
+  directToLocation(e) {
+    if (e.row.data.customer.location) {
+      const coordinates = JSON.parse(e.row.data.customer.location);
       window.open(
         'https://www.google.com/maps/dir/?api=1&origin_place_id=ChIJ6_MMY8K1xRQRS7WWM5yBtOo&destination=' +
           (coordinates.latitude ?? coordinates.lat) +
@@ -100,7 +116,6 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   getInTouch(data) {
-    console.log(data);
     if (data?.customer.telegramUserName) {
       window.open(
         'https://telegram.me/' + data?.customer.telegramUserName,
@@ -115,38 +130,13 @@ export class OrdersComponent implements OnInit, OnDestroy {
     e.data.createDate = new Date();
   }
 
-  items = [
-    {
-      Value: 1,
-      Text: this.translate.instant('ORDER.USER_CONFIRMED'),
-      disabled: false,
-    },
-    {
-      Value: 2,
-      Text: this.translate.instant('ORDER.MERCHANT_CONFIRMED'),
-      disabled: false,
-    },
-    {
-      Value: 3,
-      Text: this.translate.instant('ORDER.BEING_PREPARING'),
-      disabled: false,
-    },
-    {Value: 4, Text: this.translate.instant('ORDER.SENT'), disabled: false},
-    {
-      Value: 5,
-      Text: this.translate.instant('ORDER.DELIVERED'),
-      disabled: false,
-    },
-    {Value: 6, Text: this.translate.instant('ORDER.CANCELED'), disabled: false},
-  ];
-
   async onOperationItemClick(e, row) {
     let newOrderStatus = row.data.orderStatus;
 
     if (row.data.orderChannel === 'TELEGRAM') {
       newOrderStatus = row.data.orderStatus + 1;
     } else if (row.data.orderChannel === 'GETIR') {
-      if (row.data.orderStatus === OrderStatus.Preparing) {
+      if (row.data.orderStatus === OrderStatus.Prepared) {
         newOrderStatus = OrderStatus.Delivered;
       } else if (row.data.orderStatus !== OrderStatus.FutureOrder) {
         newOrderStatus = row.data.orderStatus + 1;
@@ -180,52 +170,63 @@ export class OrdersComponent implements OnInit, OnDestroy {
   orderStatusColumnCustomizeText(row) {
     switch (row.orderStatus) {
       case OrderStatus.UserConfirmed:
-        return this.translate.instant('Onayla');
+        return this.translate.instant(
+          'ORDER.ORDER_OPERATION_BUTTONS.CONFIRM_ORDER',
+        );
 
       case OrderStatus.MerchantConfirmed:
-        return this.translate.instant('Hazirla');
+        return this.translate.instant('ORDER.ORDER_OPERATION_BUTTONS.READY');
 
-      case OrderStatus.Preparing: {
+      case OrderStatus.Prepared: {
         let text: string = '';
         if (row.orderChannel === 'TELEGRAM') {
-          text = this.translate.instant('Gonder');
+          text = this.translate.instant('ORDER.ORDER_OPERATION_BUTTONS.SENT');
         } else if (row.orderChannel === 'GETIR') {
           text =
             row.getirOrder.deliveryType === DeliveryType.ByGetir
-              ? 'Getir Kuryesine teslim et'
-              : 'Müşteriye teslim et';
+              ? this.translate.instant(
+                  'ORDER.ORDER_OPERATION_BUTTONS.HANDED_TO_GETIR',
+                )
+              : this.translate.instant(
+                  'ORDER.ORDER_OPERATION_BUTTONS.DELIVERED',
+                );
         }
         return text;
       }
 
       case OrderStatus.OrderSent:
-        return this.translate.instant('Ulasti');
+        return this.translate.instant('ORDER.ORDER_OPERATION_BUTTONS.SENT');
 
       case OrderStatus.Delivered:
         let text: string = '';
         if (row.orderChannel === 'TELEGRAM') {
-          text = 'DELIVERED';
+          text = this.translate.instant(
+            'ORDER.ORDER_OPERATION_BUTTONS.DELIVERED',
+          );
         } else if (row.orderChannel === 'GETIR') {
           text =
             row.getirOrder.deliveryType === DeliveryType.ByGetir
-              ? 'Kuryeye verildi'
-              : 'Teslim edildi';
+              ? this.translate.instant(
+                  'ORDER.ORDER_OPERATION_BUTTONS.HANDED_TO_GETIR',
+                )
+              : this.translate.instant(
+                  'ORDER.ORDER_OPERATION_BUTTONS.DELIVERED',
+                );
         }
         return text;
 
       case OrderStatus.Canceled:
-        return 'CANCELED';
+        return this.translate.instant('ORDER.ORDER_OPERATION_BUTTONS.CANCELED');
 
       case OrderStatus.FutureOrder:
-        return 'İleri tarihli siparişi onayla';
-    }
-  }
+        return this.translate.instant(
+          'ORDER.ORDER_OPERATION_BUTTONS.CONFIRM_FUTURE_ORDER',
+        );
 
-  getirOrderStaus(rowData) {
-    if (rowData?.status === 400) {
-      return this.translate.instant('ORDER.NEW_ORDER');
-    } else {
-      return this.translate.instant('ORDER.FUTURE_ORDER');
+      case OrderStatus.ConfirmedFutureOrder:
+        return this.translate.instant(
+          'ORDER.ORDER_OPERATION_BUTTONS.FUTURE_ORDER_CONFIRMED',
+        );
     }
   }
 

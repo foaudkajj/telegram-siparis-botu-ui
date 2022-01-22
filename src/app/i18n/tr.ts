@@ -86,7 +86,7 @@ export const locale = {
       ORDER_NO: 'Sipariş No.',
       ORDER_STATUS: 'Sipariş Durumu',
       CREATE_DATE: 'Oluşturma Tarihi',
-      NOTE: 'Açıklama',
+      NOTE: 'Sipariş notu',
       USER_ID: 'Kullanıcı Anahtarı',
       AMOUNT: 'Adet',
       TOTAL_PRICE: 'Tutar',
@@ -107,7 +107,7 @@ export const locale = {
       DO_NOT_KNOCK: 'Zili Çalma',
       DROP_OFF_AT_DOOR: 'Siparişi kapıya bırak',
       CLIENT_NAME: 'Müşteri Adı',
-      CLIENT_DELIVERY_ADDRESS: 'Müşteri Soyadı',
+      CLIENT_DELIVERY_ADDRESS: 'Müşteri adresi',
       CLIENT_DISTRICT: 'İlçe',
       CLIENT_CITY: 'İl',
       NEW_ORDER: 'Yeni sipariş',
@@ -117,6 +117,17 @@ export const locale = {
       IS_SCHEDULED: 'İleri tarihli sipariş',
       PAYMENT_METHOD: 'Ödeme yöntemi',
       PRODUCT_OPTIONS: 'Opsiyonlar',
+      PRODUCT_NOTE: 'Ürün Notu',
+      ORDER_OPERATION_BUTTONS: {
+        CONFIRM_ORDER: 'Onayla',
+        READY: 'Hazırlandı',
+        SENT: 'Gönderildi',
+        HANDED_TO_GETIR: 'Getir Kuryesine teslim edildi',
+        DELIVERED: 'Müşteriye teslim edildi',
+        FUTURE_ORDER_CONFIRMED: 'İleri tarihli sipariş onaylandı',
+        CONFIRM_FUTURE_ORDER: 'İleri tarihli siparişi onayla',
+        CANELED: 'İptal edildi',
+      },
       CUSTOMER: {
         ID: 'Telegram Kullanıcı Id',
         USER_NAME: 'Kullanıcı Adı',
@@ -156,10 +167,9 @@ export const locale = {
       ACTIVE_OPTION_PRODUCT: 'Tüm ürünlerde aç',
       INACTIVE_OPTION_PRODUCT: 'Tüm ürünlerde kapat',
       ERRORS: {
-        FAST_PREPARE:
-          'En az 1.dk beklemeniz gerekiyor.',
-          FAST_DELIVER: 'En az 1.dk beklemeniz gerekiyor.',
-          GENERAL_ERROR: 'Getir genel hata. Hata Kodu {{errorCode}}'
+        FAST_PREPARE: 'En az 1.dk beklemeniz gerekiyor.',
+        FAST_DELIVER: 'En az 1.dk beklemeniz gerekiyor.',
+        GENERAL_ERROR: 'Getir genel hata. Hata Kodu {{errorCode}}',
       },
     },
     YEMEKSEPETI: {

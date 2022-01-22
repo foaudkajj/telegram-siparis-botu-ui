@@ -42,26 +42,14 @@
           </dxi-column>
           <dxi-column [calculateDisplayValue]="paymentMethodsDisplayValue" [allowSorting]="false" [caption]="'ORDER.PAYMENT_METHOD' | translate" dataField="paymentMethod">
           </dxi-column>
-          <!-- <dxi-column [allowSorting]="false" [caption]="'ORDER.ORDER_STATUS' | translate" dataField="orderStatus">
-            <dxo-lookup [dataSource]="items" displayExpr="Text" valueExpr="Value"> </dxo-lookup>
-          </dxi-column> -->
           <dxi-column [allowSorting]="false" sortOrder="desc" [caption]="'ORDER.CREATE_DATE' | translate" dataField="createDate" dataType="date" format="dd.MM.yyyy, HH:mm">
           </dxi-column>
-          <!-- <dxi-column [caption]="'ORDER.CUSTOMER.ADDRESS' | translate" dataField="customer.Address">
-                        
-                    </dxi-column> -->
 
           <dxi-column [allowSorting]="false" [caption]="'ORDER.CUSTOMER.FULL_NAME' | translate" dataField="customer.fullName"> </dxi-column>
           <dxi-column [allowSorting]="false" [caption]="'ORDER.CUSTOMER.PHONE_NUMBER' | translate" dataField="customer.phoneNumber"> </dxi-column>
-          <dxi-column [allowSorting]="false" [caption]="'ORDER.NOTE' | translate" dataField="note"> </dxi-column>
-          <dxi-column [allowSorting]="false" [caption]="'ORDER.CUSTOMER.ADDRESS' | translate" dataField="customer.address"></dxi-column>
-
-          <dxi-column [allowSorting]="false" cellTemplate="locationCellTemplate" [caption]="'ORDER.CUSTOMER.LOCATION' | translate" dataField="customer.location"> </dxi-column>
-          <div *dxTemplate="let row of 'locationCellTemplate'">
-            <button mat-raised-button color="accent" [disabled]="!row.data?.customer.location" (click)="directToLocation(row.data)">
-              {{ 'ORDER.DIRECT_TO_LOCATION' | translate }}
-            </button>
-          </div>
+          <dxi-column type="buttons">
+            <dxi-button [hint]="'ORDER.CUSTOMER.LOCATION' | translate" icon="fas fa-route" [onClick]="directToLocation"></dxi-button>
+          </dxi-column>
           <dxi-column [allowSorting]="false" cellTemplate="userNameCellTemplate"> </dxi-column>
           <div *dxTemplate="let row of 'userNameCellTemplate'">
             <i
@@ -76,8 +64,7 @@
           <dxi-column [allowSorting]="false" [calculateDisplayValue]="orderStatusColumnCustomizeText" cellTemplate="orderStausTemplate"> </dxi-column>
           <div *dxTemplate="let row of 'orderStausTemplate'">
             <dx-drop-down-button
-              [width]="'200px'"
-              [disabled]="row.data.orderStatus === 5 || row.data.orderStatus === 6"
+              [disabled]="row.data.orderStatus === 5 || row.data.orderStatus === 6 || row.data.orderStatus === 8"
               [splitButton]="true"
               [useSelectMode]="false"
               [text]="row.text"
@@ -88,71 +75,51 @@
               (onItemClick)="cancelOrder($event, row)"
             ></dx-drop-down-button>
           </div>
-
-          <!-- <dxi-column cellTemplate="operationsCellTemplate" [formItem]="{visible: false}"> </dxi-column>
-
-          <div *dxTemplate="let row of 'operationsCellTemplate'">
-            <dx-drop-down-button
-              *ngIf="row.data?.operationItems?.length > 0"
-              [text]="'ORDER.ORDER_OPERATIONS' | translate"
-              [dropDownOptions]="{width: 230}"
-              icon="save"
-              [items]="row.data.operationItems"
-              displayExpr="Text"
-              keyExpr="Value"
-              (onItemClick)="onOperationItemClick($event, row)"
-              itemTemplate="dxdropdowntemplate"
-            >
-              <div *dxTemplate="let data of 'dxdropdowntemplate'">
-                {{ data.Text | translate }}
-              </div>
-            </dx-drop-down-button>
-          </div> -->
-
-          <!-- <dxo-editing mode="popup" [allowUpdating]="AllowUpdate" [allowDeleting]="false" [allowAdding]="AllowAdd"> -->
-          <!-- <dxo-popup title="" [width]="'auto'" [height]="'auto'"> </dxo-popup>
-          </dxo-editing> -->
           <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
 
           <div *dxTemplate="let order of 'detail'">
-            <dx-data-grid [allowColumnResizing]="true" [columnAutoWidth]="true" [dataSource]="order.data.orderItems" [showBorders]="true">
-              <dxi-column [caption]="'ORDER.AMOUNT' | translate" dataField="amount"> </dxi-column>
-              <dxi-column [caption]="'ORDER.PRODUCT_TITLE' | translate" dataField="product.title"> </dxi-column>
-              <dxi-column [caption]="'ORDER.PRODUCT_DESCRIPTION' | translate" dataField="product.description"> </dxi-column>
-              <dxi-column [caption]="'ORDER.UNIT_PRICE' | translate" dataField="product.unitPrice" format="currency" dataType="number">
-                <dxo-format type="currency" precision="2"></dxo-format>
-              </dxi-column>
-              <dxi-column [caption]="'ORDER.PRODUCT_OPTIONS' | translate" dataField="orderOptions" cellTemplate="optionsTemplate"> </dxi-column>
+            <dx-form #formInstance [showColonAfterLabel]="true" [readOnly]="true" [formData]="order?.data" labelLocation="top" colCount="2">
+              <dxi-item dataField="note" [label]="{text: ('ORDER.NOTE' | translate)}"></dxi-item>
+              <dxi-item dataField="customer.address" [label]="{text: ('ORDER.CUSTOMER.ADDRESS' | translate)}" editorType="dxTextArea"></dxi-item>
+            </dx-form>
 
-              <dxi-column [caption]="'ORDER.NOTE' | translate" dataField="itemNote"> </dxi-column>
-              <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
-
-              <div *dxTemplate="let cell of 'optionsTemplate'">
-                <ul>
-                  <ng-container *ngFor="let orderOption of cell.data.orderOptions">
-                    <li>{{ orderOption?.option?.name + ' ' + orderOption?.price + ' ₺' }}</li></ng-container
-                  >
-                </ul>
-              </div>
-            </dx-data-grid>
             <hr />
             <ng-container *ngIf="order.data.orderChannel === 'GETIR'">
-              <dx-data-grid [wordWrapEnabled]="true" [allowColumnResizing]="true" [columnAutoWidth]="true" [dataSource]="[order.data.getirOrder]" [showBorders]="true">
-                <dxi-column [allowSorting]="false" [caption]="'ORDER.ORDER_NO' | translate" dataField="id"> </dxi-column>
-                <dxi-column [caption]="'ORDER.IS_SCHEDULED' | translate" dataField="isScheduled"> </dxi-column>
-                <dxi-column [caption]="'ORDER.COURIER_NAME' | translate" dataField="courierName"> </dxi-column>
-                <dxi-column [caption]="'ORDER.DO_NOT_KNOCK' | translate" dataField="doNotKnock"> </dxi-column>
-                <dxi-column [caption]="'ORDER.DROP_OFF_AT_DOOR' | translate" dataField="dropOffAtDoor"> </dxi-column>
-                <dxi-column [caption]="'ORDER.IS_ECO_FRIENDLY' | translate" dataField="isEcoFriendly"> </dxi-column>
-                <dxi-column [caption]="'ORDER.TOTAL_PRICE' | translate" dataField="totalPrice">
+              <dx-form #formInstance [showColonAfterLabel]="true" [readOnly]="true" [formData]="order?.data?.getirOrder" labelLocation="top" colCount="3">
+                <dxi-item dataField="id" [label]="{text: 'ORDER.ORDER_NO' | translate}"></dxi-item>
+                <dxi-item dataField="isScheduled" [label]="{text: 'ORDER.IS_SCHEDULED' | translate}"></dxi-item>
+                <dxi-item dataField="courierName" [label]="{text: 'ORDER.COURIER_NAME' | translate}"></dxi-item>
+                <dxi-item dataField="doNotKnock" [label]="{text: 'ORDER.DO_NOT_KNOCK' | translate}"></dxi-item>
+                <dxi-item dataField="dropOffAtDoor" [label]="{text: 'ORDER.DROP_OFF_AT_DOOR' | translate}"></dxi-item>
+                <dxi-item dataField="isEcoFriendly" [label]="{text: 'ORDER.IS_ECO_FRIENDLY' | translate}"></dxi-item>
+                <dxi-item dataField="totalPrice" [label]="{text: 'ORDER.TOTAL_PRICE' | translate}"></dxi-item>
+                <dxi-item dataField="clientName" [label]="{text: 'ORDER.CLIENT_NAME' | translate}"></dxi-item>
+                <dxi-item dataField="clientDeliveryAddress" [label]="{text: 'ORDER.CLIENT_DELIVERY_ADDRESS' | translate}"></dxi-item>
+                <dxi-item dataField="clientDistrict" [label]="{text: 'ORDER.CLIENT_DISTRICT' | translate}"></dxi-item>
+                <dxi-item dataField="clientCity" [label]="{text: 'ORDER.CLIENT_CITY' | translate}">
+                  <dxo-format type="currency" precision="2"></dxo-format>
+                </dxi-item>
+              </dx-form>
+              <hr />
+              <dx-data-grid [allowColumnResizing]="true" [columnAutoWidth]="true" [dataSource]="order.data.orderItems" [showBorders]="true">
+                <dxi-column [caption]="'ORDER.AMOUNT' | translate" dataField="amount"> </dxi-column>
+                <dxi-column [caption]="'ORDER.PRODUCT_TITLE' | translate" dataField="product.title"> </dxi-column>
+                <dxi-column [caption]="'ORDER.PRODUCT_DESCRIPTION' | translate" dataField="product.description"> </dxi-column>
+                <dxi-column [caption]="'ORDER.UNIT_PRICE' | translate" dataField="product.unitPrice" format="currency" dataType="number">
                   <dxo-format type="currency" precision="2"></dxo-format>
                 </dxi-column>
-                <dxi-column [caption]="'ORDER.CLIENT_NAME' | translate" dataField="clientName"> </dxi-column>
-                <dxi-column [caption]="'ORDER.CLIENT_DELIVERY_ADDRESS' | translate" dataField="clientDeliveryAddress"> </dxi-column>
-                <dxi-column [caption]="'ORDER.CLIENT_DISTRICT' | translate" dataField="clientDistrict"> </dxi-column>
-                <dxi-column [caption]="'ORDER.CLIENT_CITY' | translate" dataField="clientCity"> </dxi-column>
-                <dxi-column [calculateDisplayValue]="getirOrderStaus" [caption]="'ORDER.STATUS' | translate" dataField="status"> </dxi-column>
+                <dxi-column [caption]="'ORDER.PRODUCT_OPTIONS' | translate" dataField="orderOptions" cellTemplate="optionsTemplate"> </dxi-column>
+
+                <dxi-column [caption]="'ORDER.PRODUCT_NOTE' | translate" dataField="itemNote"> </dxi-column>
                 <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+
+                <div *dxTemplate="let cell of 'optionsTemplate'">
+                  <ul>
+                    <ng-container *ngFor="let orderOption of cell.data.orderOptions">
+                      <li>{{ orderOption?.option?.name + ' ' + orderOption?.price + ' ₺' }}</li></ng-container
+                    >
+                  </ul>
+                </div>
               </dx-data-grid>
             </ng-container>
           </div>

@@ -85,7 +85,7 @@ export const locale = {
         ORDER_NO: 'Order No.',
         ORDER_STATUS: 'Order Status',
         CREATE_DATE: 'Create Date',
-        Note: 'Note',
+        NOTE: 'Order note',
         USER_ID: 'User Id',
         AMOUNT: 'Amount',
         TOTAL_PRICE: 'Amount',
@@ -116,6 +116,17 @@ export const locale = {
         IS_SCHEDULED: 'Is Scheduled',
         PAYMENT_METHOD: 'Payment Method',
         PRODUCT_OPTIONS: 'Options',
+        PRODUCT_NOTE: 'Product note',
+        ORDER_OPERATION_BUTTONS: {
+          CONFIRM_ORDER: 'Confirm',
+          READY: 'Order ready',
+          SENT: 'Order sent',
+          HANDED_TO_GETIR: 'Order handed to Getir',
+          DELIVERED: 'Order delivered.',
+          FUTURE_ORDER_CONFIRMED: 'Future order confirmed',
+          CONFIRM_FUTURE_ORDER: 'Confirm future order',
+          CANELED: 'Order canceled',
+        },
         CUSTOMER: {
           ID: 'Kullanıcı Id',
           USER_NAME: 'Kullanıcı Adı',
@@ -129,10 +140,9 @@ export const locale = {
     GETIR: {
       TITLE: 'Getir',
       ERRORS: {
-        FAST_PREPARE:
-        'En az 1.dk beklemeniz gerekiyor.',
+        FAST_PREPARE: 'En az 1.dk beklemeniz gerekiyor.',
         FAST_DELIVER: 'En az 1.dk beklemeniz gerekiyor.',
-        GENERAL_ERROR: 'Getir General Error. Code: {{errorCode}}'
+        GENERAL_ERROR: 'Getir General Error. Code: {{errorCode}}',
       },
     },
     YEMEKSEPETI: {
